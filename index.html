@@ -27,9 +27,9 @@
         </a>
 
         <div class="nav-links">
-          <a href="#menu">Menu</a>
           <a href="img/random-menus/ChatGPT Image May 16, 2026, 04_20_26 PM.png" target="_blank" rel="noopener" data-random-menu-link>Open Image</a>
           <a href="img/random-menus/ChatGPT Image May 16, 2026, 04_20_26 PM.png" download data-random-menu-link>Download</a>
+          <a href="contact.html">Contact</a>
         </div>
       </nav>
     </header>
@@ -43,7 +43,25 @@
           alt="Hylander Mobile food truck menu with prices for chop cheese, chop chicken, pierogis, wings, sliders, sides, desserts, mango, water, and Gatorade."
         >
       </figure>
+
     </main>
+
+    <section class="monster-report" aria-label="Random monster report">
+      <div class="monster-report-track">
+        <div class="monster-report-set" data-monster-report-set>
+          <span>Random Monster Report</span>
+          <span>Current Flavor Threat: HIGH</span>
+          <span>Last Seen: Kingston, NY</span>
+          <span>Weakness: Mango</span>
+        </div>
+        <div class="monster-report-set" data-monster-report-set aria-hidden="true">
+          <span>Random Monster Report</span>
+          <span>Current Flavor Threat: HIGH</span>
+          <span>Last Seen: Kingston, NY</span>
+          <span>Weakness: Mango</span>
+        </div>
+      </div>
+    </section>
 
     <footer class="site-footer">
       <div class="footer-inner">
@@ -51,16 +69,21 @@
           <strong>Hylander Mobile</strong>
           <span>Little cart. Big flavor.</span>
         </div>
-        <div>
-          <span>Kingston, NY</span>
-          <a href="https://www.instagram.com/hylandermobile" target="_blank" rel="noopener">@hylandermobile</a>
+        <div class="footer-social">
+          <a class="instagram-button instagram-button-small" href="https://www.instagram.com/hylandermobile" target="_blank" rel="noopener" aria-label="Hylander Mobile on Instagram">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.5" cy="6.5" r="1.2"></circle>
+            </svg>
+          </a>
         </div>
         <div>
           <span>Cash preferred</span>
           <span>PayPal: hylanrappaport1</span>
         </div>
         <div class="footer-credit">
-          <p>Website by <a href="https://tree-rouge.vercel.app/" target="_blank" rel="noopener">TREE</a></p>
+          <p>Made by <a href="https://tree-rouge.vercel.app/" target="_blank" rel="noopener">TREE</a></p>
         </div>
       </div>
     </footer>
@@ -81,6 +104,32 @@
       menuImage.src = randomMenu;
       menuLinks.forEach((link) => {
         link.href = randomMenu;
+      });
+
+      const monsterReports = [
+        ["Random Monster Report", "Current Flavor Threat: HIGH", "Last Seen: Kingston, NY", "Weakness: Mango"],
+        ["Random Monster Report", "Current Flavor Threat: SAUCE SURGE", "Last Seen: Behind the grill", "Weakness: Extra napkins"],
+        ["Random Monster Report", "Current Flavor Threat: FULL RAMPAGE", "Last Seen: Hovering near the fryer", "Weakness: Chop cheese"],
+        ["Random Monster Report", "Current Flavor Threat: CRUNCH EVENT", "Last Seen: Shaking the snack table", "Weakness: Pierogis"],
+        ["Random Monster Report", "Current Flavor Threat: EXTREME HUNGER", "Last Seen: Staring at the menu", "Weakness: Wings"],
+        ["Random Monster Report", "Current Flavor Threat: RADIOACTIVE FLAVOR", "Last Seen: Kingston waterfront", "Weakness: Cold mango"],
+        ["Random Monster Report", "Current Flavor Threat: CHEESE MELTDOWN", "Last Seen: Inside a cloud of steam", "Weakness: Sliders"],
+        ["Random Monster Report", "Current Flavor Threat: GRILL QUAKES", "Last Seen: Three blocks away", "Weakness: Gatorade"],
+        ["Random Monster Report", "Current Flavor Threat: MUNCHIES ALERT", "Last Seen: Circling the cart", "Weakness: Dessert"],
+        ["Random Monster Report", "Current Flavor Threat: DELICIOUSLY UNSTABLE", "Last Seen: Under the purple glow", "Weakness: One more order"]
+      ];
+
+      const randomReport = monsterReports[Math.floor(Math.random() * monsterReports.length)];
+      const reportSets = document.querySelectorAll("[data-monster-report-set]");
+
+      reportSets.forEach((reportSet) => {
+        reportSet.replaceChildren(
+          ...randomReport.map((message) => {
+            const item = document.createElement("span");
+            item.textContent = message;
+            return item;
+          })
+        );
       });
     </script>
   </body>
