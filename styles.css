@@ -484,6 +484,8 @@ a {
   overflow: hidden;
   position: relative;
   background: #000000;
+  contain: layout paint;
+  transform: translateZ(0);
 }
 
 .game-result::after {
@@ -501,13 +503,14 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 170ms ease, transform 170ms ease, filter 170ms ease;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: opacity 140ms ease, transform 140ms ease;
 }
 
 .game-result.is-changing img {
-  opacity: 0.28;
-  transform: scale(1.025);
-  filter: saturate(1.25) blur(1px);
+  opacity: 0.45;
+  transform: translateZ(0) scale(1.01);
 }
 
 .game-result.is-loading::after {
@@ -574,6 +577,7 @@ a {
   text-shadow: 3px 3px 0 #000000, 0 0 20px rgba(255, 255, 255, 0.72);
 }
 
+.flavor-screen-wash,
 .flavor-shockwave,
 .comic-pop {
   position: fixed;
@@ -581,6 +585,50 @@ a {
   top: var(--impact-y);
   pointer-events: none;
   transform: translate(-50%, -50%);
+}
+
+.flavor-screen-wash {
+  inset: 0;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  overflow: hidden;
+  transform: none;
+  opacity: 0;
+  animation: flavor-screen-wash 920ms ease-out forwards;
+}
+
+.flavor-screen-wash::before,
+.flavor-screen-wash::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.flavor-screen-wash::before {
+  left: var(--impact-x);
+  top: var(--impact-y);
+  width: 34vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.75) 0 16%, var(--impact-color) 17% 42%, transparent 68%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--impact-color) 72%, #ffffff) 0 16%, var(--impact-color) 17% 42%, transparent 68%);
+  opacity: 0.48;
+  transform: translate(-50%, -50%) scale(0.2);
+  animation: sauce-wash-bloom 920ms ease-out forwards;
+}
+
+.flavor-screen-wash::after {
+  top: -22%;
+  left: -34%;
+  width: 168%;
+  height: 56%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0 12%, rgba(255, 255, 255, 0.62) 28%, var(--impact-color) 48%, rgba(0, 0, 0, 0.24) 66%, transparent 88% 100%);
+  background: linear-gradient(90deg, transparent 0 12%, color-mix(in srgb, var(--impact-color) 65%, #ffffff) 28%, var(--impact-color) 48%, color-mix(in srgb, var(--impact-color) 62%, #000000) 66%, transparent 88% 100%);
+  opacity: 0.34;
+  transform: translateX(-32%) rotate(-13deg);
+  animation: sauce-wash-swipe 860ms cubic-bezier(0.12, 0.8, 0.2, 1) forwards;
 }
 
 .flavor-shockwave {
@@ -707,6 +755,40 @@ a {
   100% {
     opacity: 0;
     transform: translate(-50%, -70%) rotate(8deg) scale(0.68);
+  }
+}
+
+@keyframes flavor-screen-wash {
+  0% {
+    opacity: 0;
+  }
+
+  16% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sauce-wash-bloom {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(4.8);
+  }
+}
+
+@keyframes sauce-wash-swipe {
+  0% {
+    transform: translateX(-32%) rotate(-13deg);
+  }
+
+  100% {
+    transform: translateX(82%) rotate(-13deg);
   }
 }
 
@@ -1330,6 +1412,7 @@ a {
   .site-header {
     padding-right: 8px;
     padding-left: 8px;
+    backdrop-filter: none;
   }
 
   .navbar {
@@ -1431,6 +1514,22 @@ a {
       0 0 0 3px #ffffff,
       0 0 0 7px #000000,
       0 0 18px var(--impact-color);
+  }
+
+  .flavor-screen-wash {
+    animation-duration: 720ms;
+  }
+
+  .flavor-screen-wash::before {
+    width: 28vmax;
+    opacity: 0.32;
+    animation-duration: 720ms;
+  }
+
+  .flavor-screen-wash::after {
+    height: 42%;
+    opacity: 0.2;
+    animation-duration: 680ms;
   }
 
   .comic-pop {

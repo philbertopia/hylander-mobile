@@ -131,6 +131,10 @@
             <img
               src="img/roulette/flavors/start.png"
               alt="Sauce Roulette is ready to spin"
+              width="1536"
+              height="1024"
+              decoding="async"
+              fetchpriority="high"
               data-sauce-result-image
             >
             <span class="loading-text" data-loading-text>Loading...</span>
@@ -293,7 +297,8 @@
       const rouletteWheel = document.querySelector("[data-roulette-wheel]");
       const workingImage = "img/roulette/flavors/working.png";
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const isSmallScreen = window.matchMedia("(max-width: 640px)").matches;
+      const smallScreenQuery = window.matchMedia("(max-width: 640px)");
+      const isSmallScreen = () => smallScreenQuery.matches;
       const sliceSize = 360 / sauces.length;
       const pointerAngle = 0;
       let currentRotation = 0;
@@ -303,15 +308,189 @@
       let titleBounceTimer;
       let rumbleTimer;
       let tickerPauseTimer;
+      let imageSwapToken = 0;
+      let audioContext;
+      const resultImageCache = new Map();
+
+      const getAudioContext = () => {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) {
+          return null;
+        }
+
+        if (!audioContext) {
+          audioContext = new AudioContext();
+        }
+
+        if (audioContext.state === "suspended") {
+          audioContext.resume().catch(() => {});
+        }
+
+        return audioContext;
+      };
+
+      const playTone = ({ frequency, endFrequency, startTime, duration, type = "sine", volume = 0.08 }) => {
+        const context = getAudioContext();
+        if (!context) {
+          return;
+        }
+
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        const now = context.currentTime;
+        const at = now + startTime;
+
+        oscillator.type = type;
+        oscillator.frequency.setValueAtTime(frequency, at);
+        if (endFrequency) {
+          oscillator.frequency.exponentialRampToValueAtTime(endFrequency, at + duration);
+        }
+
+        gain.gain.setValueAtTime(0.0001, at);
+        gain.gain.exponentialRampToValueAtTime(volume, at + 0.018);
+        gain.gain.exponentialRampToValueAtTime(0.0001, at + duration);
+
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.start(at);
+        oscillator.stop(at + duration + 0.03);
+      };
+
+      const playNoiseBurst = ({ startTime, duration, volume = 0.08 }) => {
+        const context = getAudioContext();
+        if (!context) {
+          return;
+        }
+
+        const sampleCount = Math.floor(context.sampleRate * duration);
+        const buffer = context.createBuffer(1, sampleCount, context.sampleRate);
+        const data = buffer.getChannelData(0);
+        const source = context.createBufferSource();
+        const filter = context.createBiquadFilter();
+        const gain = context.createGain();
+        const at = context.currentTime + startTime;
+
+        for (let index = 0; index < sampleCount; index += 1) {
+          data[index] = (Math.random() * 2 - 1) * (1 - index / sampleCount);
+        }
+
+        filter.type = "lowpass";
+        filter.frequency.setValueAtTime(520, at);
+        filter.frequency.exponentialRampToValueAtTime(90, at + duration);
+
+        gain.gain.setValueAtTime(0.0001, at);
+        gain.gain.exponentialRampToValueAtTime(volume, at + 0.018);
+        gain.gain.exponentialRampToValueAtTime(0.0001, at + duration);
+
+        source.buffer = buffer;
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(context.destination);
+        source.start(at);
+        source.stop(at + duration);
+      };
+
+      const playSpinSound = () => {
+        if (prefersReducedMotion) {
+          return;
+        }
+
+        playTone({ frequency: 180, endFrequency: 620, startTime: 0, duration: 0.34, type: "triangle", volume: 0.045 });
+        playTone({ frequency: 280, endFrequency: 760, startTime: 0.08, duration: 0.32, type: "square", volume: 0.025 });
+      };
+
+      const playImpactSound = (sauce) => {
+        if (prefersReducedMotion) {
+          return;
+        }
+
+        const baseFrequency = {
+          Plain: 260,
+          Jerk: 330,
+          Buffalo: 220,
+          Curry: 294,
+          BBQ: 196,
+          "Lemon Pepper": 392,
+          "Mango Pepper": 349
+        }[sauce.name] || 260;
+
+        playNoiseBurst({ startTime: 0, duration: 0.24, volume: 0.08 });
+        playTone({ frequency: baseFrequency * 0.72, endFrequency: baseFrequency * 0.36, startTime: 0, duration: 0.28, type: "sawtooth", volume: 0.055 });
+        playTone({ frequency: baseFrequency, endFrequency: baseFrequency * 1.5, startTime: 0.08, duration: 0.18, type: "triangle", volume: 0.045 });
+        playTone({ frequency: baseFrequency * 2, endFrequency: baseFrequency * 2.4, startTime: 0.18, duration: 0.16, type: "sine", volume: 0.035 });
+      };
 
       const swapResultImage = (src, alt) => {
+        const swapToken = imageSwapToken + 1;
+        imageSwapToken = swapToken;
         window.clearTimeout(imageSwapTimer);
         sauceResult.classList.add("is-changing");
-        imageSwapTimer = window.setTimeout(() => {
-          sauceResultImage.src = src;
-          sauceResultImage.alt = alt;
-          sauceResult.classList.remove("is-changing");
-        }, 170);
+        return new Promise((resolve) => {
+          const nextImage = new Image();
+          let didFinish = false;
+          let fallbackTimer;
+          const finishSwap = () => {
+            if (didFinish) {
+              return;
+            }
+            didFinish = true;
+            window.clearTimeout(fallbackTimer);
+            if (swapToken !== imageSwapToken) {
+              resolve(false);
+              return;
+            }
+
+            sauceResultImage.src = src;
+            sauceResultImage.alt = alt;
+            imageSwapTimer = window.setTimeout(() => {
+              if (swapToken === imageSwapToken) {
+                sauceResult.classList.remove("is-changing");
+              }
+              resolve(true);
+            }, 90);
+          };
+
+          nextImage.decoding = "async";
+          fallbackTimer = window.setTimeout(finishSwap, 1200);
+          nextImage.src = src;
+
+          if (nextImage.decode) {
+            nextImage.decode().then(finishSwap).catch(finishSwap);
+          } else if (nextImage.complete) {
+            finishSwap();
+          } else {
+            nextImage.onload = finishSwap;
+            nextImage.onerror = finishSwap;
+          }
+        });
+      };
+
+      const preloadResultImages = () => {
+        const preload = (src) => {
+          if (resultImageCache.has(src)) {
+            return;
+          }
+
+          const image = new Image();
+          image.decoding = "async";
+          image.src = src;
+          resultImageCache.set(src, image);
+        };
+        const preloadSauces = () => {
+          sauces.forEach((sauce, index) => {
+            window.setTimeout(() => {
+              preload(sauce.image);
+            }, index * 240);
+          });
+        };
+
+        preload(workingImage);
+
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(preloadSauces, { timeout: 2600 });
+        } else {
+          window.setTimeout(preloadSauces, 900);
+        }
       };
 
       const burstEmojis = (emojis) => {
@@ -326,8 +505,8 @@
         const resultRect = sauceResult.getBoundingClientRect();
         const wheelRect = rouletteWheel.getBoundingClientRect();
         const buttonRect = spinButton.getBoundingClientRect();
-        const particleMultiplier = isSmallScreen ? 0.6 : 1.22;
-        const particleDistance = isSmallScreen ? 0.72 : 1.16;
+        const particleMultiplier = isSmallScreen() ? 0.6 : 1.22;
+        const particleDistance = isSmallScreen() ? 0.72 : 1.16;
         const centers = [
           {
             x: resultRect.left + resultRect.width / 2,
@@ -355,7 +534,7 @@
           const scale = hero ? 1.85 + Math.random() * 0.8 : 0.85 + Math.random() * 1.25;
           const rotate = Math.random() * 520 - 260;
           const duration = hero ? 980 + Math.random() * 260 : bounce ? 1120 + Math.random() * 520 : 860 + Math.random() * 520;
-          const delay = Math.random() * (isSmallScreen ? 90 : 180);
+          const delay = Math.random() * (isSmallScreen() ? 90 : 180);
 
           particle.className = "emoji-particle";
           if (hero) {
@@ -380,7 +559,7 @@
 
         const particles = [];
         let particleIndex = 0;
-        const heroCount = isSmallScreen ? 3 : 6;
+        const heroCount = isSmallScreen() ? 3 : 6;
 
         Array.from({ length: heroCount }).forEach(() => {
           const angle = -150 + Math.random() * 120;
@@ -414,7 +593,7 @@
           });
         });
 
-        Array.from({ length: isSmallScreen ? 10 : 24 }).forEach((_, index) => {
+        Array.from({ length: isSmallScreen() ? 10 : 24 }).forEach((_, index) => {
           const fromLeft = index % 2 === 0;
           const startX = fromLeft ? -36 : viewportWidth + 36;
           const startY = 80 + Math.random() * (viewportHeight * 0.7);
@@ -433,7 +612,7 @@
           particleIndex += 1;
         });
 
-        Array.from({ length: isSmallScreen ? 5 : 12 }).forEach(() => {
+        Array.from({ length: isSmallScreen() ? 5 : 12 }).forEach(() => {
           const startX = Math.random() * viewportWidth;
           const startY = viewportHeight + 34;
 
@@ -463,8 +642,14 @@
         const resultRect = sauceResult.getBoundingClientRect();
         const impactX = resultRect.left + resultRect.width / 2;
         const impactY = resultRect.top + resultRect.height * 0.55;
+        const screenWash = document.createElement("span");
         const shockwave = document.createElement("span");
         const comicPop = document.createElement("span");
+
+        screenWash.className = "flavor-screen-wash";
+        screenWash.style.setProperty("--impact-color", sauce.color);
+        screenWash.style.setProperty("--impact-x", `${impactX}px`);
+        screenWash.style.setProperty("--impact-y", `${impactY}px`);
 
         shockwave.className = "flavor-shockwave";
         shockwave.style.setProperty("--impact-color", sauce.color);
@@ -477,7 +662,7 @@
         comicPop.style.setProperty("--impact-x", `${impactX}px`);
         comicPop.style.setProperty("--impact-y", `${Math.max(70, resultRect.top + resultRect.height * 0.18)}px`);
 
-        screenBurst.append(shockwave, comicPop);
+        screenBurst.append(screenWash, shockwave, comicPop);
         sauceResult.classList.remove("is-impacting");
         rouletteStage.classList.remove("is-impacting");
         void sauceResult.offsetWidth;
@@ -485,6 +670,7 @@
         rouletteStage.classList.add("is-impacting");
 
         window.setTimeout(() => {
+          screenWash.remove();
           shockwave.remove();
           comicPop.remove();
           sauceResult.classList.remove("is-impacting");
@@ -529,6 +715,7 @@
         rouletteWheel.dataset.selected = sauce.name;
         rouletteWheel.style.transform = `rotate(${currentRotation}deg)`;
         spinButton.disabled = true;
+        playSpinSound();
         sauceResult.classList.add("is-loading");
         swapResultImage(workingImage, "Sauce Roulette is loading");
         sauceTitleCard.classList.remove("is-celebrating");
@@ -541,7 +728,6 @@
         spinTimer = window.setTimeout(() => {
           sauceResult.classList.remove("is-loading");
           sauceTitleCard.classList.remove("is-celebrating");
-          swapResultImage(sauce.image, `${sauce.name} sauce result`);
           sauceSection.classList.remove("is-rumbling");
           window.clearTimeout(rumbleTimer);
           if (!prefersReducedMotion) {
@@ -551,16 +737,20 @@
               sauceSection.classList.remove("is-rumbling");
             }, 700);
           }
-          impactTimer = window.setTimeout(() => {
+          impactTimer = window.setTimeout(async () => {
+            await swapResultImage(sauce.image, `${sauce.name} sauce result`);
+            playImpactSound(sauce);
             burstEmojis(sauce.emojis);
             triggerFlavorImpact(sauce);
             tickerPauseTimer = window.setTimeout(() => {
               document.body.classList.remove("is-sauce-spinning");
             }, 1700);
             spinButton.disabled = false;
-          }, 190);
+          }, 120);
         }, 1250);
       });
+
+      preloadResultImages();
 
       const monsterReports = [
         ["Random Monster Report", "Current Flavor Threat: HIGH", "Last Seen: Kingston, NY", "Weakness: Mango"],
