@@ -44,11 +44,11 @@
         >
       </figure>
 
-      <section class="sauce-section" aria-labelledby="sauce-title">
+      <section class="sauce-section" aria-label="Sauce Roulette">
         <article class="game-panel sauce-panel">
-          <div class="game-heading">
-            <p id="sauce-title">Sauce Roulette</p>
-          </div>
+          <figure class="sauce-title-card">
+            <img src="img/roulette/roulette-title.png" alt="Sauce Roulette">
+          </figure>
 
           <div class="roulette-stage" aria-label="Sauce roulette wheel">
             <div class="roulette-wheel" data-roulette-wheel aria-live="polite"></div>
@@ -57,12 +57,18 @@
           <button class="game-button" type="button" data-spin-sauce>Spin Sauce</button>
 
           <div class="game-result" data-sauce-result>
-            <strong>Ready when you are.</strong>
-            <span>Tap the button and let the sauce council decide.</span>
+            <img
+              src="img/roulette/flavors/start.png"
+              alt="Sauce Roulette is ready to spin"
+              data-sauce-result-image
+            >
+            <span class="loading-text" data-loading-text>Loading...</span>
           </div>
         </article>
       </section>
     </main>
+
+    <div class="screen-burst" data-screen-burst aria-hidden="true"></div>
 
     <section class="monster-report" aria-label="Random monster report">
       <div class="monster-report-track">
@@ -133,75 +139,200 @@
         {
           name: "Plain",
           color: "#087443",
-          resultBg: "linear-gradient(135deg, #f8fafc, #d9f99d)",
-          resultText: "#0b0b0f",
-          resultAccent: "#087443",
-          heat: "Comfort Level: Gentle",
-          warning: "Approach with confidence. This one brought clean napkins."
+          labelStroke: "#043b24",
+          image: "img/roulette/flavors/plain.png",
+          emojis: ["🧂", "🤍", "🥛", "✨"]
         },
         {
           name: "Jerk",
           color: "#be185d",
-          resultBg: "linear-gradient(135deg, #3b0a12, #be185d 52%, #f97316)",
-          resultText: "#ffffff",
-          resultAccent: "#fed7aa",
-          heat: "Heat Level: Island Thunder",
-          warning: "May cause sudden chair dancing and serious sandwich focus."
+          labelStroke: "#5f0b2d",
+          image: "img/roulette/flavors/jerk.png",
+          emojis: ["🌶️", "🔥", "🏝️", "⚡"]
         },
         {
           name: "Buffalo",
           color: "#dc2626",
-          resultBg: "linear-gradient(135deg, #7f1d1d, #dc2626 55%, #facc15)",
-          resultText: "#ffffff",
-          resultAccent: "#fef08a",
-          heat: "Heat Level: Classic Chaos",
-          warning: "Tangy enough to wake up your ancestors and your appetite."
+          labelStroke: "#7f1111",
+          image: "img/roulette/flavors/buffalo.png",
+          emojis: ["🔥", "🧡", "🌶️", "💥"]
         },
         {
           name: "Curry",
           color: "#f59e0b",
-          resultBg: "linear-gradient(135deg, #78350f, #f59e0b 58%, #fde68a)",
-          resultText: "#1c1303",
-          resultAccent: "#5f370e",
-          heat: "Glow Level: Golden",
-          warning: "Smells like a good decision from three tables away."
+          labelStroke: "#8a4a04",
+          image: "img/roulette/flavors/curry.png",
+          emojis: ["🍛", "✨", "💛", "🌶️"]
         },
         {
           name: "BBQ",
           color: "#7c2d12",
-          resultBg: "linear-gradient(135deg, #27110a, #7c2d12 54%, #b45309)",
-          resultText: "#fff7ed",
-          resultAccent: "#fdba74",
-          heat: "Smoke Level: Backyard Boss",
-          warning: "Sticky fingers are not a bug. They are the achievement."
+          labelStroke: "#3f1408",
+          image: "img/roulette/flavors/bbq.png",
+          emojis: ["🍖", "🔥", "🍯", "💨"]
         },
         {
           name: "Lemon Pepper",
           color: "#65a30d",
-          resultBg: "linear-gradient(135deg, #ecfccb, #bef264 48%, #fef08a)",
-          resultText: "#17220a",
-          resultAccent: "#3f6212",
-          heat: "Zing Level: Crispy Sunshine",
-          warning: "May make your chopped chicken feel like it owns sunglasses."
+          labelStroke: "#315a06",
+          image: "img/roulette/flavors/lemon-pepper.png",
+          emojis: ["🍋", "🟡", "✨", "🧂"]
         },
         {
           name: "Mango Pepper",
           color: "#7c3aed",
-          resultBg: "linear-gradient(135deg, #831843, #f97316 48%, #7c3aed)",
-          resultText: "#ffffff",
-          resultAccent: "#ffedd5",
-          heat: "Heat Level: Sweet Sneak Attack",
-          warning: "Starts cute, then politely kicks the door open."
+          labelStroke: "#3f1a84",
+          image: "img/roulette/flavors/mango-pepper.png",
+          emojis: ["🥭", "🌶️", "💥", "🧡"]
         }
       ];
 
       const spinButton = document.querySelector("[data-spin-sauce]");
       const sauceResult = document.querySelector("[data-sauce-result]");
+      const sauceResultImage = document.querySelector("[data-sauce-result-image]");
+      const screenBurst = document.querySelector("[data-screen-burst]");
+      const sauceSection = document.querySelector(".sauce-section");
+      const sauceTitleCard = document.querySelector(".sauce-title-card");
       const rouletteWheel = document.querySelector("[data-roulette-wheel]");
+      const workingImage = "img/roulette/flavors/working.png";
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const sliceSize = 360 / sauces.length;
       const pointerAngle = 0;
       let currentRotation = 0;
       let spinTimer;
+      let imageSwapTimer;
+      let titleBounceTimer;
+      let rumbleTimer;
+
+      const swapResultImage = (src, alt) => {
+        window.clearTimeout(imageSwapTimer);
+        sauceResult.classList.add("is-changing");
+        imageSwapTimer = window.setTimeout(() => {
+          sauceResultImage.src = src;
+          sauceResultImage.alt = alt;
+          sauceResult.classList.remove("is-changing");
+        }, 170);
+      };
+
+      const burstEmojis = (emojis) => {
+        screenBurst.replaceChildren();
+
+        if (prefersReducedMotion) {
+          return;
+        }
+
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const resultRect = sauceResult.getBoundingClientRect();
+        const wheelRect = rouletteWheel.getBoundingClientRect();
+        const buttonRect = spinButton.getBoundingClientRect();
+        const centers = [
+          {
+            x: resultRect.left + resultRect.width / 2,
+            y: resultRect.top + resultRect.height * 0.62,
+            count: 16,
+            spread: 180
+          },
+          {
+            x: wheelRect.left + wheelRect.width / 2,
+            y: wheelRect.top + wheelRect.height / 2,
+            count: 12,
+            spread: 210
+          },
+          {
+            x: buttonRect.left + buttonRect.width / 2,
+            y: buttonRect.top + buttonRect.height / 2,
+            count: 10,
+            spread: 150
+          }
+        ];
+
+        const randomEmoji = (index) => emojis[index % emojis.length];
+        const makeParticle = ({ emoji, startX, startY, endX, endY, bounce = false, index }) => {
+          const particle = document.createElement("span");
+          const scale = 0.85 + Math.random() * 1.25;
+          const rotate = Math.random() * 520 - 260;
+          const duration = bounce ? 1350 + Math.random() * 700 : 1050 + Math.random() * 750;
+          const delay = Math.random() * 180;
+
+          particle.className = "emoji-particle";
+          if (bounce) {
+            particle.classList.add("is-bouncy");
+            particle.style.setProperty("--bounce-y", `${Math.max(80, viewportHeight - startY - 28)}px`);
+          }
+          particle.textContent = emoji;
+          particle.style.setProperty("--start-x", `${startX}px`);
+          particle.style.setProperty("--start-y", `${startY}px`);
+          particle.style.setProperty("--end-x", `${endX}px`);
+          particle.style.setProperty("--end-y", `${endY}px`);
+          particle.style.setProperty("--scale", scale.toFixed(2));
+          particle.style.setProperty("--rotate", `${rotate.toFixed(0)}deg`);
+          particle.style.setProperty("--duration", `${duration.toFixed(0)}ms`);
+          particle.style.setProperty("--delay", `${delay.toFixed(0)}ms`);
+          particle.style.setProperty("--z", String(index % 3));
+          return particle;
+        };
+
+        const particles = [];
+        let particleIndex = 0;
+
+        centers.forEach((origin) => {
+          Array.from({ length: origin.count }).forEach(() => {
+            const angle = -90 - origin.spread / 2 + Math.random() * origin.spread;
+            const distance = 180 + Math.random() * 420;
+            particles.push(makeParticle({
+              emoji: randomEmoji(particleIndex),
+              startX: origin.x + Math.random() * 30 - 15,
+              startY: origin.y + Math.random() * 30 - 15,
+              endX: origin.x + Math.cos((angle * Math.PI) / 180) * distance,
+              endY: origin.y + Math.sin((angle * Math.PI) / 180) * distance,
+              bounce: Math.random() > 0.72,
+              index: particleIndex
+            }));
+            particleIndex += 1;
+          });
+        });
+
+        Array.from({ length: 20 }).forEach((_, index) => {
+          const fromLeft = index % 2 === 0;
+          const startX = fromLeft ? -36 : viewportWidth + 36;
+          const startY = 80 + Math.random() * (viewportHeight * 0.7);
+          const endX = fromLeft ? viewportWidth * (0.35 + Math.random() * 0.45) : viewportWidth * (0.2 + Math.random() * 0.45);
+          const endY = Math.max(40, startY - 140 - Math.random() * 260);
+
+          particles.push(makeParticle({
+            emoji: randomEmoji(particleIndex),
+            startX,
+            startY,
+            endX,
+            endY,
+            bounce: Math.random() > 0.82,
+            index: particleIndex
+          }));
+          particleIndex += 1;
+        });
+
+        Array.from({ length: 10 }).forEach(() => {
+          const startX = Math.random() * viewportWidth;
+          const startY = viewportHeight + 34;
+
+          particles.push(makeParticle({
+            emoji: randomEmoji(particleIndex),
+            startX,
+            startY,
+            endX: startX + (Math.random() * 280 - 140),
+            endY: viewportHeight * (0.25 + Math.random() * 0.36),
+            bounce: true,
+            index: particleIndex
+          }));
+          particleIndex += 1;
+        });
+
+        screenBurst.replaceChildren(...particles);
+        window.setTimeout(() => {
+          screenBurst.replaceChildren();
+        }, 2600);
+      };
 
       rouletteWheel.style.background = `conic-gradient(from ${-sliceSize / 2}deg, ${sauces
         .map((sauce, index) => {
@@ -216,6 +347,7 @@
           const label = document.createElement("span");
           const labelText = document.createElement("b");
           label.style.setProperty("--angle", `${index * sliceSize}deg`);
+          label.style.setProperty("--label-stroke", sauce.labelStroke);
           labelText.textContent = sauce.name;
           label.append(labelText);
           return label;
@@ -234,17 +366,29 @@
         rouletteWheel.dataset.selected = sauce.name;
         rouletteWheel.style.transform = `rotate(${currentRotation}deg)`;
         spinButton.disabled = true;
-        sauceResult.classList.remove("has-flavor");
-        sauceResult.removeAttribute("style");
-        sauceResult.innerHTML = "<strong>Spinning...</strong><span>The sauce wheel is making a tiny dramatic decision.</span>";
+        sauceResult.classList.add("is-loading");
+        swapResultImage(workingImage, "Sauce Roulette is loading");
+        sauceTitleCard.classList.remove("is-celebrating");
+        window.clearTimeout(titleBounceTimer);
+        titleBounceTimer = window.setTimeout(() => {
+          sauceTitleCard.classList.add("is-celebrating");
+        }, 160);
 
         window.clearTimeout(spinTimer);
         spinTimer = window.setTimeout(() => {
-          sauceResult.classList.add("has-flavor");
-          sauceResult.style.setProperty("--result-bg", sauce.resultBg);
-          sauceResult.style.setProperty("--result-text", sauce.resultText);
-          sauceResult.style.setProperty("--result-accent", sauce.resultAccent);
-          sauceResult.innerHTML = `<strong>${sauce.name}</strong><span>${sauce.heat}. ${sauce.warning}</span>`;
+          sauceResult.classList.remove("is-loading");
+          sauceTitleCard.classList.remove("is-celebrating");
+          swapResultImage(sauce.image, `${sauce.name} sauce result`);
+          burstEmojis(sauce.emojis);
+          sauceSection.classList.remove("is-rumbling");
+          window.clearTimeout(rumbleTimer);
+          if (!prefersReducedMotion) {
+            void sauceSection.offsetWidth;
+            sauceSection.classList.add("is-rumbling");
+            rumbleTimer = window.setTimeout(() => {
+              sauceSection.classList.remove("is-rumbling");
+            }, 700);
+          }
           spinButton.disabled = false;
         }, 1250);
       });
