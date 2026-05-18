@@ -147,6 +147,7 @@ a {
   min-height: calc(100vh - 79px);
   padding: 36px max(10px, env(safe-area-inset-right)) max(96px, calc(env(safe-area-inset-bottom) + 54px)) max(10px, env(safe-area-inset-left));
   display: grid;
+  gap: 28px;
   place-items: center;
 }
 
@@ -174,6 +175,237 @@ a {
   padding: 36px max(14px, env(safe-area-inset-right)) max(86px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
   display: grid;
   place-items: center;
+}
+
+.sauce-section {
+  width: min(100%, 760px);
+  display: block;
+}
+
+.game-panel {
+  min-width: 0;
+  padding: clamp(18px, 4vw, 28px);
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  color: #ffffff;
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.sauce-panel {
+  border-color: rgba(18, 183, 106, 0.78);
+  background: url("img/roulette/ChatGPT Image May 18, 2026, 02_22_32 PM.png") center / cover;
+  box-shadow: 0 18px 44px rgba(7, 7, 12, 0.28), 4px 4px 0 var(--green);
+}
+
+.game-heading {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 10px 14px;
+  display: grid;
+  gap: 5px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.58);
+  text-align: center;
+}
+
+.game-heading p,
+.game-heading h2 {
+  margin: 0;
+}
+
+.game-heading p {
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.game-heading h2 {
+  font-size: clamp(1.45rem, 5vw, 2.3rem);
+  line-height: 1;
+}
+
+.roulette-stage {
+  width: min(100%, 360px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  position: relative;
+}
+
+.roulette-stage::before {
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-right: 14px solid transparent;
+  border-left: 14px solid transparent;
+  border-top: 28px solid #ffffff;
+  content: "";
+  filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.4));
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.roulette-stage::after {
+  position: absolute;
+  inset: 50%;
+  width: 58px;
+  height: 58px;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  background: #000000;
+  box-shadow: 0 0 0 5px var(--green);
+  content: "";
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.roulette-wheel {
+  width: 100%;
+  height: 100%;
+  padding: 18px;
+  border: 8px solid var(--green);
+  border-radius: 50%;
+  color: #ffffff;
+  background: var(--deep-green);
+  box-shadow: inset 0 0 0 10px #000000, 0 12px 28px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: transform 1250ms cubic-bezier(0.12, 0.75, 0.16, 1);
+  will-change: transform;
+}
+
+.roulette-wheel span {
+  position: absolute;
+  inset: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 17px;
+  font-size: clamp(0.62rem, 2.3vw, 0.82rem);
+  font-weight: 950;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 1px 1px 0 #000000;
+  transform: rotate(var(--angle));
+  transform-origin: center;
+}
+
+.roulette-wheel b {
+  width: min-content;
+  max-width: 78px;
+  padding: 4px 5px;
+  display: block;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.32);
+  line-height: 1.05;
+}
+
+.game-button {
+  min-height: 50px;
+  width: min(100%, 320px);
+  margin: 0 auto;
+  border: 0;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--deep-green);
+  box-shadow: 4px 4px 0 var(--pink);
+  font: inherit;
+  font-size: 0.94rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.game-button:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--pink);
+}
+
+.game-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.game-button:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.game-result {
+  --result-bg: rgba(0, 0, 0, 0.62);
+  --result-text: rgba(255, 255, 255, 0.84);
+  --result-accent: var(--green);
+  min-height: 92px;
+  padding: 14px;
+  display: grid;
+  gap: 6px;
+  align-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  color: var(--result-text);
+  background: var(--result-bg);
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 10px 24px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.game-result::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--result-accent) 42%, transparent) 0 8px, transparent 9px),
+    radial-gradient(circle at 88% 24%, color-mix(in srgb, var(--result-accent) 34%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 22% 86%, color-mix(in srgb, var(--result-accent) 30%, transparent) 0 15px, transparent 16px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 52%);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
+.game-result.has-flavor {
+  border-color: color-mix(in srgb, var(--result-accent) 68%, #ffffff);
+  backdrop-filter: none;
+}
+
+.game-result.has-flavor::before {
+  opacity: 1;
+}
+
+.game-result > * {
+  position: relative;
+  z-index: 1;
+}
+
+.game-result strong {
+  color: var(--result-accent);
+  font-size: 1.2rem;
+  line-height: 1.1;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.22);
+}
+
+.game-result span {
+  color: var(--result-text);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .contact-panel {
@@ -539,6 +771,25 @@ a {
   gap: 6px;
 }
 
+.footer-links {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.footer-links a {
+  min-height: 34px;
+  padding: 8px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  text-decoration: none;
+}
+
 .footer-credit {
   grid-column: 1 / -1;
   display: flex;
@@ -595,7 +846,7 @@ a {
 
   .nav-links {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
     gap: 6px;
   }
 
@@ -618,6 +869,10 @@ a {
   .menu-frame {
     width: 100%;
     border-radius: 8px;
+  }
+
+  .roulette-stage {
+    width: min(100%, 310px);
   }
 
   .feedback-actions {

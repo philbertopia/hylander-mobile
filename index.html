@@ -44,6 +44,24 @@
         >
       </figure>
 
+      <section class="sauce-section" aria-labelledby="sauce-title">
+        <article class="game-panel sauce-panel">
+          <div class="game-heading">
+            <p id="sauce-title">Sauce Roulette</p>
+          </div>
+
+          <div class="roulette-stage" aria-label="Sauce roulette wheel">
+            <div class="roulette-wheel" data-roulette-wheel aria-live="polite"></div>
+          </div>
+
+          <button class="game-button" type="button" data-spin-sauce>Spin Sauce</button>
+
+          <div class="game-result" data-sauce-result>
+            <strong>Ready when you are.</strong>
+            <span>Tap the button and let the sauce council decide.</span>
+          </div>
+        </article>
+      </section>
     </main>
 
     <section class="monster-report" aria-label="Random monster report">
@@ -82,6 +100,9 @@
           <span>Cash preferred</span>
           <span>PayPal: hylanrappaport1</span>
         </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="contact.html">Contact</a>
+        </nav>
         <div class="footer-credit">
           <p>Made by <a href="https://tree-rouge.vercel.app/" target="_blank" rel="noopener">TREE</a></p>
         </div>
@@ -106,6 +127,126 @@
       menuImage.src = randomMenu;
       menuLinks.forEach((link) => {
         link.href = randomMenu;
+      });
+
+      const sauces = [
+        {
+          name: "Plain",
+          color: "#087443",
+          resultBg: "linear-gradient(135deg, #f8fafc, #d9f99d)",
+          resultText: "#0b0b0f",
+          resultAccent: "#087443",
+          heat: "Comfort Level: Gentle",
+          warning: "Approach with confidence. This one brought clean napkins."
+        },
+        {
+          name: "Jerk",
+          color: "#be185d",
+          resultBg: "linear-gradient(135deg, #3b0a12, #be185d 52%, #f97316)",
+          resultText: "#ffffff",
+          resultAccent: "#fed7aa",
+          heat: "Heat Level: Island Thunder",
+          warning: "May cause sudden chair dancing and serious sandwich focus."
+        },
+        {
+          name: "Buffalo",
+          color: "#dc2626",
+          resultBg: "linear-gradient(135deg, #7f1d1d, #dc2626 55%, #facc15)",
+          resultText: "#ffffff",
+          resultAccent: "#fef08a",
+          heat: "Heat Level: Classic Chaos",
+          warning: "Tangy enough to wake up your ancestors and your appetite."
+        },
+        {
+          name: "Curry",
+          color: "#f59e0b",
+          resultBg: "linear-gradient(135deg, #78350f, #f59e0b 58%, #fde68a)",
+          resultText: "#1c1303",
+          resultAccent: "#5f370e",
+          heat: "Glow Level: Golden",
+          warning: "Smells like a good decision from three tables away."
+        },
+        {
+          name: "BBQ",
+          color: "#7c2d12",
+          resultBg: "linear-gradient(135deg, #27110a, #7c2d12 54%, #b45309)",
+          resultText: "#fff7ed",
+          resultAccent: "#fdba74",
+          heat: "Smoke Level: Backyard Boss",
+          warning: "Sticky fingers are not a bug. They are the achievement."
+        },
+        {
+          name: "Lemon Pepper",
+          color: "#65a30d",
+          resultBg: "linear-gradient(135deg, #ecfccb, #bef264 48%, #fef08a)",
+          resultText: "#17220a",
+          resultAccent: "#3f6212",
+          heat: "Zing Level: Crispy Sunshine",
+          warning: "May make your chopped chicken feel like it owns sunglasses."
+        },
+        {
+          name: "Mango Pepper",
+          color: "#7c3aed",
+          resultBg: "linear-gradient(135deg, #831843, #f97316 48%, #7c3aed)",
+          resultText: "#ffffff",
+          resultAccent: "#ffedd5",
+          heat: "Heat Level: Sweet Sneak Attack",
+          warning: "Starts cute, then politely kicks the door open."
+        }
+      ];
+
+      const spinButton = document.querySelector("[data-spin-sauce]");
+      const sauceResult = document.querySelector("[data-sauce-result]");
+      const rouletteWheel = document.querySelector("[data-roulette-wheel]");
+      const sliceSize = 360 / sauces.length;
+      const pointerAngle = 0;
+      let currentRotation = 0;
+      let spinTimer;
+
+      rouletteWheel.style.background = `conic-gradient(from ${-sliceSize / 2}deg, ${sauces
+        .map((sauce, index) => {
+          const start = index * sliceSize;
+          const end = (index + 1) * sliceSize;
+          return `${sauce.color} ${start}deg ${end}deg`;
+        })
+        .join(", ")})`;
+
+      rouletteWheel.replaceChildren(
+        ...sauces.map((sauce, index) => {
+          const label = document.createElement("span");
+          const labelText = document.createElement("b");
+          label.style.setProperty("--angle", `${index * sliceSize}deg`);
+          labelText.textContent = sauce.name;
+          label.append(labelText);
+          return label;
+        })
+      );
+
+      spinButton.addEventListener("click", () => {
+        const sauceIndex = Math.floor(Math.random() * sauces.length);
+        const sauce = sauces[sauceIndex];
+        const sliceCenter = sauceIndex * sliceSize;
+        const targetRotation = ((pointerAngle - sliceCenter) % 360 + 360) % 360;
+        const currentPosition = ((currentRotation % 360) + 360) % 360;
+        const rotationDelta = (targetRotation - currentPosition + 360) % 360;
+
+        currentRotation += 1080 + rotationDelta;
+        rouletteWheel.dataset.selected = sauce.name;
+        rouletteWheel.style.transform = `rotate(${currentRotation}deg)`;
+        spinButton.disabled = true;
+        sauceResult.classList.remove("has-flavor");
+        sauceResult.removeAttribute("style");
+        sauceResult.innerHTML = "<strong>Spinning...</strong><span>The sauce wheel is making a tiny dramatic decision.</span>";
+
+        window.clearTimeout(spinTimer);
+        spinTimer = window.setTimeout(() => {
+          sauceResult.classList.add("has-flavor");
+          sauceResult.style.setProperty("--result-bg", sauce.resultBg);
+          sauceResult.style.setProperty("--result-text", sauce.resultText);
+          sauceResult.style.setProperty("--result-accent", sauce.resultAccent);
+          sauceResult.innerHTML = `<strong>${sauce.name}</strong><span>${sauce.heat}. ${sauce.warning}</span>`;
+          spinButton.disabled = false;
+        }, 1250);
       });
 
       const monsterReports = [
