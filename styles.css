@@ -182,7 +182,7 @@ a {
   display: grid;
   gap: 16px;
   color: #ffffff;
-  background: rgba(11, 11, 15, 0.9);
+  background: #000000;
   border: 1px solid rgba(236, 72, 153, 0.72);
   border-radius: 8px;
   box-shadow: 0 18px 44px rgba(7, 7, 12, 0.26), 4px 4px 0 var(--green);
@@ -201,6 +201,19 @@ a {
   font-weight: 950;
   line-height: 1;
   text-transform: uppercase;
+}
+
+.contact-title-art {
+  width: min(100%, 760px);
+  margin: 0 auto 2px;
+  line-height: 0;
+}
+
+.contact-title-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
 .contact-panel h1,
