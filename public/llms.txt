@@ -1,0 +1,17 @@
+# Hylander Mobile
+
+Hylander Mobile is a Kingston, NY food truck.
+
+Important pages:
+- Menu: index.html
+- Contact: contact.html
+- Email: h.rappaportculinary@gmail.com
+
+Menu summary:
+- Main foods include chop cheese, chop chicken, wings, sliders, pierogis, sides, and desserts.
+- Drinks include mango drinks, water, and Gatorade.
+- Sauce Roulette flavors include Plain, Jerk, Buffalo, Curry, BBQ, Lemon Pepper, and Mango Pepper.
+- Cash is preferred. PayPal is available at hylanrappaport1.
+
+Social:
+- Instagram: https://www.instagram.com/hylandermobile

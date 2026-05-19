@@ -1,5 +1,12 @@
-# Hylander Mobile Menu
+# Hylander Mobile
 
-Static menu website for the Hylander Mobile food truck.
+Next.js app for the Hylander Mobile menu, Sauce Roulette, local pickup/delivery ordering, and admin delivery dashboard.
 
-Upload this folder to any static host, then point your QR code at the live `index.html` URL.
+## Local development
+
+1. Copy `.env.example` to `.env`.
+2. Run `npm install`.
+3. Run `npm run db:init`.
+4. Run `npm run dev`.
+
+The delivery flow uses mock paid checkout until Square API keys are configured.
