@@ -19,9 +19,13 @@ export function SiteFooter() {
           <span>PayPal: hylanrappaport1</span>
         </div>
         <nav className="flex flex-wrap justify-center gap-3 sm:col-span-3" aria-label="Footer navigation">
+          <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/">Home</Link>
+          <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/#menu">Salt Box Menu</Link>
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/order">Order</Link>
+          <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/catering">Catering</Link>
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/contact">Contact</Link>
-          <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/admin">Admin</Link>
+          <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/careers">Careers</Link>
+          <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/legal">Legal</Link>
         </nav>
         <div className="text-center text-xs font-bold sm:col-span-3">
           Made by <a className="underline decoration-hyPurple underline-offset-4" href="https://tree-rouge.vercel.app/" target="_blank" rel="noopener">TREE</a>
