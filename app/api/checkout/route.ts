@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import { DatabaseUnavailableError, getPrisma } from "@/lib/db";
 import { orderStatuses, paymentStatuses } from "@/lib/constants";
 import { checkoutSchema, calculateOrder, createOrderNumber, validateDeliveryArea } from "@/lib/orders";
 import { isOrderingOpen } from "@/lib/hours";
@@ -8,6 +8,7 @@ import { activeVenue } from "@/lib/venues";
 
 export async function POST(request: Request) {
   try {
+    const prisma = await getPrisma();
     const input = checkoutSchema.parse(await request.json());
     validateDeliveryArea(input);
 
@@ -66,6 +67,10 @@ export async function POST(request: Request) {
       orderNumber: paidOrder.orderNumber
     });
   } catch (error) {
+    if (error instanceof DatabaseUnavailableError) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+
     return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to create order." }, { status: 400 });
   }
 }
