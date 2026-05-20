@@ -14,18 +14,22 @@ type Venue = {
   menuExternal?: boolean;
   menuDisabled?: boolean;
   openDays: number[];
+  openHour: number;
+  closeHour: number;
 };
 
 const venues: Venue[] = [
   {
     id: "salt-box",
     name: "Salt Box Bar",
-    hours: "Tuesday-Sunday, 7 PM-4 AM",
+    hours: "Tuesday-Sunday, 8 PM-3 AM",
     address: "10 Crown St, Kingston, NY 12401",
     href: "https://www.thesaltbox.bar/",
     menuHref: "/order?venue=salt-box",
     menuLabel: "Order Salt Box",
-    openDays: [2, 3, 4, 5, 6, 0]
+    openDays: [2, 3, 4, 5, 6, 0],
+    openHour: 20,
+    closeHour: 3
   },
   {
     id: "night-swim",
@@ -36,7 +40,9 @@ const venues: Venue[] = [
     menuHref: "#",
     menuLabel: "Order Night Swim",
     menuDisabled: true,
-    openDays: [2]
+    openDays: [2],
+    openHour: 19,
+    closeHour: 4
   }
 ];
 
@@ -44,8 +50,8 @@ const isVenueOpen = (venue: Venue, now: Date) => {
   const day = now.getDay();
   const hour = now.getHours() + now.getMinutes() / 60;
   const previousDay = (day + 6) % 7;
-  const openTonight = venue.openDays.includes(day) && hour >= 19;
-  const stillOpenFromYesterday = venue.openDays.includes(previousDay) && hour < 4;
+  const openTonight = venue.openDays.includes(day) && hour >= venue.openHour;
+  const stillOpenFromYesterday = venue.openDays.includes(previousDay) && hour < venue.closeHour;
   return openTonight || stillOpenFromYesterday;
 };
 
