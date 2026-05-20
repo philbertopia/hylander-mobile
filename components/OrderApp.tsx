@@ -18,7 +18,7 @@ type CartItem = {
 
 const categories = ["Mains", "Wings", "Sides", "Desserts", "Drinks"];
 
-export function OrderApp() {
+export function OrderApp({ returnedOrderNumber = "" }: { returnedOrderNumber?: string }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [fulfillmentType, setFulfillmentType] = useState<"PICKUP" | "DELIVERY">("PICKUP");
   const [selectedModifiers, setSelectedModifiers] = useState<Record<string, string[]>>({});
@@ -183,6 +183,11 @@ export function OrderApp() {
       <aside className="h-fit min-w-0 overflow-hidden rounded-lg border-2 border-black bg-black p-4 text-white shadow-sticker lg:sticky lg:top-24" data-animate="card">
         <p className="mb-1 w-fit rounded-full bg-hyHotPink px-3 py-1 text-xs font-black uppercase">{activeVenue.name}</p>
         <h2 className="text-2xl font-black uppercase text-hyGreen">Your Order</h2>
+        {returnedOrderNumber ? (
+          <p className="mt-2 rounded-lg border border-hyPink bg-white px-3 py-2 text-sm font-black text-black">
+            Returned from Square for order {returnedOrderNumber}. Check the Square sandbox dashboard to confirm payment while webhooks are being finished.
+          </p>
+        ) : null}
         {cartNotice ? <p className="mt-2 rounded-lg border border-hyGreen bg-hyGreen px-3 py-2 text-sm font-black text-black">{cartNotice}</p> : null}
         <div className="mt-3 grid grid-cols-2 gap-2 rounded-lg bg-white/10 p-2">
           {(["PICKUP", "DELIVERY"] as const).map((type) => (

@@ -9,7 +9,9 @@ export const metadata = {
   description: "Salt Box local Hylander Mobile pickup and delivery ordering for Kingston, NY."
 };
 
-export default function OrderPage() {
+export default function OrderPage({ searchParams }: { searchParams?: { order?: string } }) {
+  const returnedOrderNumber = typeof searchParams?.order === "string" ? searchParams.order : "";
+
   return (
     <>
       <SiteHeader />
@@ -25,7 +27,7 @@ export default function OrderPage() {
             Salt Box pickup hours: {describeHours("PICKUP")}. Salt Box delivery hours: {describeHours("DELIVERY")}.
           </p>
         </section>
-        <OrderApp />
+        <OrderApp returnedOrderNumber={returnedOrderNumber} />
       </main>
       <SiteFooter />
     </>
