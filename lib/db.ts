@@ -4,12 +4,21 @@ const globalForPrisma = globalThis as unknown as {
 
 export class DatabaseUnavailableError extends Error {
   constructor() {
-    super("Online ordering is still in development. Please check back soon.");
+    super("Online ordering needs the local order database. Restart the dev server and make sure DATABASE_URL is configured.");
     this.name = "DatabaseUnavailableError";
   }
 }
 
-export const isDatabaseConfigured = () => Boolean(process.env.DATABASE_URL);
+const ensureDevelopmentDatabaseUrl = () => {
+  if (!process.env.DATABASE_URL && process.env.NODE_ENV === "development") {
+    process.env.DATABASE_URL = "file:./dev.db";
+  }
+};
+
+export const isDatabaseConfigured = () => {
+  ensureDevelopmentDatabaseUrl();
+  return Boolean(process.env.DATABASE_URL);
+};
 
 export const getPrisma = async (): Promise<any> => {
   if (!isDatabaseConfigured()) {
