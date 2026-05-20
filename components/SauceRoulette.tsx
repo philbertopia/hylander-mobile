@@ -85,7 +85,7 @@ const flavorBubbleWords: Record<string, string[]> = {
   "Lemon Pepper": ["POP!", "ZEST!", "ZING!", "SPARK!", "Kira!", "Suppai!", "Pika!", "Lemon blast!", "酸味", "光", "レモン", "キラ!"],
   "Mango Pepper": ["BAM!", "JUICY!", "TROPIC!", "ZAP!", "Uma!", "Karai!", "Maji uma!", "Mango storm!", "果実", "辛い", "南国", "マンゴー"]
 };
-const bubbleStyles = ["is-manga", "is-stamp", "is-sticker", "is-shout", "is-kanji", "is-outline", "is-banner", "is-raw"];
+const bubbleStyles = ["is-manga", "is-stamp", "is-sticker", "is-shout", "is-kanji", "is-outline", "is-banner", "is-raw", "is-explode", "is-burst"];
 
 export function SauceRoulette() {
   const [rotation, setRotation] = useState(0);
@@ -278,8 +278,10 @@ export function SauceRoulette() {
       const distance = isSmallScreen() ? 92 + Math.random() * 84 : 130 + Math.random() * 150;
       bubble.className = `sauce-word ${hasJapanese ? "is-kanji" : bubbleStyles[(index + Math.floor(Math.random() * bubbleStyles.length)) % bubbleStyles.length]}`;
       bubble.textContent = word;
+      const linger = Math.random() > 0.48;
       bubble.style.setProperty("--impact-color", sauce.color);
       bubble.style.setProperty("--bubble-scale", `${(1.06 + Math.random() * 0.34).toFixed(2)}`);
+      bubble.style.setProperty("--duration", `${linger ? 1850 + Math.random() * 650 : 1180 + Math.random() * 320}ms`);
       bubble.style.setProperty("--impact-x", `${x}px`);
       bubble.style.setProperty("--impact-y", `${y}px`);
       bubble.style.setProperty("--bubble-x", `${Math.cos((angle * Math.PI) / 180) * distance}px`);
@@ -302,7 +304,7 @@ export function SauceRoulette() {
       wordBubbles.forEach((bubble) => bubble.remove());
       setIsImpacting(false);
       setIsWheelImpacting(false);
-    }, 1900);
+    }, 2800);
   };
 
   const spin = async () => {
