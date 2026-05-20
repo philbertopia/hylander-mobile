@@ -17,7 +17,6 @@ export default function ContactPage() {
           <figure className="mx-auto w-full max-w-[760px] leading-none" data-animate="image">
             <Image className="h-auto w-full rounded-lg" src="/img/ChatGPT Image May 17, 2026, 08_54_41 PM.png" alt="Contact Us with kaiju artwork" width={1536} height={1024} unoptimized />
           </figure>
-          <h1 className="text-3xl font-black leading-none sm:text-5xl" data-animate="title">We love to hear from <span className="text-hyGreen [text-shadow:3px_3px_0_#be185d]">you!</span></h1>
           <p className="mx-auto max-w-2xl rounded-lg border border-hyPurple/50 bg-hyPurple/20 p-4 font-bold text-white/85">
             Tell us what you loved, what we can do better, or what you want to see next.
           </p>
