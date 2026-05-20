@@ -21,9 +21,9 @@ export function RandomMenuImage() {
   }, []);
 
   return (
-    <section className="grid w-full max-w-[980px] gap-3" id="menu" aria-label="Salt Box Menu">
+    <section className="grid w-full max-w-[980px] gap-3" id="menu" aria-label="Salt Box Bar Menu">
       <h2 className="w-full rounded-lg border-2 border-black bg-hyGreen px-4 py-3 text-center text-3xl font-black uppercase leading-none text-black shadow-[4px_4px_0_#ec4899] sm:text-5xl" data-animate="title">
-        Salt Box Menu
+        Salt Box Bar Menu
       </h2>
       <figure className="m-0 overflow-hidden rounded-lg border-2 border-black bg-white leading-none shadow-[4px_4px_0_#ec4899]" data-animate="image">
         <Image

@@ -133,7 +133,7 @@ export function OrderApp({ returnedOrderNumber = "" }: { returnedOrderNumber?: s
         <div className="rounded-lg border-2 border-black bg-black p-4 text-white shadow-black" data-animate="card">
           <p className="text-xs font-black uppercase text-hyHotPink">Active ordering location</p>
           <h2 className="text-2xl font-black uppercase text-hyGreen">{activeVenue.name}</h2>
-          <p className="mt-1 text-sm font-bold text-white/70">This checkout is currently for the Salt Box menu only. Night Swim ordering will be added later when that menu is ready.</p>
+          <p className="mt-1 text-sm font-bold text-white/70">This checkout is currently for the Salt Box Bar menu only. Night Swim ordering will be added later when that menu is ready.</p>
         </div>
         {groupedItems.map((group) => (
           <div key={group.category} className="grid gap-3">
@@ -225,7 +225,7 @@ export function OrderApp({ returnedOrderNumber = "" }: { returnedOrderNumber?: s
                 <input className="min-w-0 rounded-lg border border-white/20 bg-white/10 p-3 text-white" name="deliveryState" defaultValue="NY" required />
                 <input className="min-w-0 rounded-lg border border-white/20 bg-white/10 p-3 text-white" name="deliveryZip" placeholder="ZIP" required />
               </div>
-              <p className="text-xs font-bold text-white/70">Salt Box local delivery ZIPs: {allowedDeliveryZips.join(", ")}. Delivery fee: {formatMoney(deliveryFeeCents)}.</p>
+              <p className="text-xs font-bold text-white/70">Salt Box Bar local delivery ZIPs: {allowedDeliveryZips.join(", ")}. Delivery fee: {formatMoney(deliveryFeeCents)}.</p>
             </div>
           ) : null}
           <textarea className="min-w-0 rounded-lg border border-white/20 bg-white/10 p-3 text-white placeholder:text-white/50" name="customerNotes" placeholder="Notes optional" rows={3} />

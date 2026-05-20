@@ -6,8 +6,8 @@ import { describeHours } from "@/lib/hours";
 import { activeVenue } from "@/lib/venues";
 
 export const metadata = {
-  title: "Salt Box Pickup or Delivery",
-  description: "Salt Box local Hylander Mobile pickup and delivery ordering for Kingston, NY."
+  title: "Salt Box Bar Pickup or Delivery",
+  description: "Salt Box Bar local Hylander Mobile pickup and delivery ordering for Kingston, NY."
 };
 
 export default function OrderPage({ searchParams }: { searchParams?: { order?: string } }) {
@@ -28,7 +28,7 @@ export default function OrderPage({ searchParams }: { searchParams?: { order?: s
           </p>
           <p className="mt-2 max-w-3xl font-bold text-black/70">
             Build a test order from the {activeVenue.name} menu for pickup or local delivery. Delivery is local only and adds a fixed $5 fee.
-            Salt Box pickup hours: {describeHours("PICKUP")}. Salt Box delivery hours: {describeHours("DELIVERY")}.
+            Salt Box Bar pickup hours: {describeHours("PICKUP")}. Salt Box Bar delivery hours: {describeHours("DELIVERY")}.
           </p>
         </section>
         <OrderApp returnedOrderNumber={returnedOrderNumber} />

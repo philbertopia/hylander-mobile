@@ -9,7 +9,7 @@ export type Venue = {
 
 export const saltBoxVenue: Venue = {
   id: "salt-box",
-  name: "Salt Box",
+  name: "Salt Box Bar",
   menuId: "salt-box",
   pickupEnabled: true,
   deliveryEnabled: true,
