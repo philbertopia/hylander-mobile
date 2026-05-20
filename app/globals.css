@@ -217,7 +217,7 @@ select {
 .flavor-screen-wash,
 .flavor-shockwave,
 .comic-pop,
-.sauce-word-bubble {
+.sauce-word {
   position: fixed;
   left: var(--impact-x);
   top: var(--impact-y);
@@ -296,75 +296,90 @@ select {
   animation: comic-pop 980ms cubic-bezier(0.2, 1.18, 0.26, 1) forwards;
 }
 
-.sauce-word-bubble {
+.sauce-word {
   z-index: 4;
-  max-width: min(58vw, 260px);
-  padding: 0.36em 0.64em 0.42em;
-  border: 3px solid #000000;
-  border-radius: 999px 999px 999px 10px;
-  color: #000000;
-  background: linear-gradient(135deg, #ffffff 0 62%, color-mix(in srgb, var(--impact-color) 22%, #ffffff) 100%);
-  box-shadow: 4px 4px 0 #000000, 0 0 22px var(--impact-color);
+  max-width: min(70vw, 340px);
+  color: #ffffff;
+  background: transparent;
   font-family: "Comic Sans MS", "Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif;
-  font-size: clamp(1.12rem, 4.7vw, 2.2rem);
+  font-size: clamp(1.35rem, 5.6vw, 3rem);
   font-weight: 950;
   line-height: 0.92;
   text-align: center;
   text-transform: uppercase;
+  text-shadow:
+    -3px -3px 0 #000000,
+    3px -3px 0 #000000,
+    -3px 3px 0 #000000,
+    3px 3px 0 #000000,
+    0 0 24px var(--impact-color),
+    5px 5px 0 var(--impact-color);
   opacity: 0;
   animation: sauce-word-bubble 1250ms cubic-bezier(0.18, 1.16, 0.28, 1) var(--delay) forwards;
 }
 
-.sauce-word-bubble.is-manga {
-  border-color: var(--impact-color);
-  border-radius: 6px;
+.sauce-word.is-manga {
   color: #ffffff;
-  background: #000000;
-  box-shadow: 5px 5px 0 var(--impact-color), 0 0 24px rgba(255, 255, 255, 0.66);
   letter-spacing: 0.04em;
+  text-shadow:
+    -4px -4px 0 #000000,
+    4px -4px 0 #000000,
+    -4px 4px 0 #000000,
+    4px 4px 0 #000000,
+    7px 7px 0 var(--impact-color);
 }
 
-.sauce-word-bubble.is-stamp {
-  border-color: var(--impact-color);
-  border-radius: 10px;
+.sauce-word.is-stamp {
   color: var(--impact-color);
-  background: #ffffff;
-  box-shadow: 3px 3px 0 #000000, inset 0 0 0 3px rgba(0, 0, 0, 0.12);
-  transform-origin: center;
+  font-family: Impact, "Arial Black", "Arial Rounded MT Bold", sans-serif;
+  text-shadow:
+    -2px -2px 0 #000000,
+    2px -2px 0 #000000,
+    -2px 2px 0 #000000,
+    2px 2px 0 #000000,
+    0 0 18px #ffffff;
 }
 
-.sauce-word-bubble.is-sticker {
-  border-radius: 999px 8px 999px 8px;
-  color: #000000;
-  background: color-mix(in srgb, var(--impact-color) 72%, #ffffff);
-  box-shadow: 4px 4px 0 #000000, 0 0 24px var(--impact-color);
+.sauce-word.is-sticker {
+  color: color-mix(in srgb, var(--impact-color) 68%, #ffffff);
+  font-style: italic;
+  text-shadow:
+    -2px -2px 0 #000000,
+    2px -2px 0 #000000,
+    -2px 2px 0 #000000,
+    2px 2px 0 #000000,
+    5px 5px 0 #12b76a,
+    0 0 18px var(--impact-color);
 }
 
-.sauce-word-bubble.is-shout {
-  border-radius: 4px 999px 4px 999px;
+.sauce-word.is-shout {
   color: #ffffff;
-  background: var(--impact-color);
-  box-shadow: 5px 5px 0 #000000, 0 0 28px var(--impact-color);
   font-size: clamp(1.35rem, 5.5vw, 2.65rem);
+  text-shadow:
+    -3px -3px 0 #000000,
+    3px -3px 0 #000000,
+    -3px 3px 0 #000000,
+    3px 3px 0 #000000,
+    0 0 30px var(--impact-color);
 }
 
-.sauce-word-bubble.is-kanji {
-  border-width: 4px;
-  border-radius: 8px;
+.sauce-word.is-kanji {
   color: #ffffff;
-  background: linear-gradient(135deg, #000000, #4c1d95 68%, var(--impact-color));
-  box-shadow: 4px 4px 0 #000000, 0 0 24px var(--impact-color);
   font-family: "Yu Gothic", "Meiryo", "MS Gothic", "Arial Rounded MT Bold", sans-serif;
   font-size: clamp(1.5rem, 6.4vw, 3.15rem);
   letter-spacing: 0.06em;
+  text-shadow:
+    -3px -3px 0 #000000,
+    3px -3px 0 #000000,
+    -3px 3px 0 #000000,
+    3px 3px 0 #000000,
+    6px 6px 0 var(--impact-color),
+    0 0 22px var(--impact-color);
   writing-mode: horizontal-tb;
 }
 
-.sauce-word-bubble.is-outline {
-  border: 0;
+.sauce-word.is-outline {
   color: #ffffff;
-  background: transparent;
-  box-shadow: none;
   font-size: clamp(1.55rem, 6.8vw, 3.4rem);
   text-shadow:
     -3px -3px 0 #000000,
@@ -375,21 +390,19 @@ select {
     5px 5px 0 var(--impact-color);
 }
 
-.sauce-word-bubble.is-banner {
-  border-color: #000000;
-  border-radius: 6px;
+.sauce-word.is-banner {
   color: #ffffff;
-  background: linear-gradient(90deg, #000000, var(--impact-color));
-  box-shadow: 5px 5px 0 color-mix(in srgb, var(--impact-color) 58%, #000000), 0 0 26px var(--impact-color);
   transform: skew(-8deg);
+  text-shadow:
+    -3px -3px 0 var(--impact-color),
+    3px -3px 0 var(--impact-color),
+    -3px 3px 0 var(--impact-color),
+    3px 3px 0 var(--impact-color),
+    6px 6px 0 #000000;
 }
 
-.sauce-word-bubble.is-raw {
-  border: 0;
-  border-radius: 0;
+.sauce-word.is-raw {
   color: var(--impact-color);
-  background: transparent;
-  box-shadow: none;
   font-size: clamp(1.45rem, 6.2vw, 3.2rem);
   text-shadow:
     -2px -2px 0 #000000,
@@ -397,39 +410,6 @@ select {
     -2px 2px 0 #000000,
     2px 2px 0 #000000,
     0 0 18px #ffffff;
-}
-
-.sauce-word-bubble::after {
-  position: absolute;
-  right: 18%;
-  bottom: -9px;
-  width: 14px;
-  height: 14px;
-  border-right: 3px solid #000000;
-  border-bottom: 3px solid #000000;
-  background: #ffffff;
-  content: "";
-  transform: rotate(45deg);
-}
-
-.sauce-word-bubble.is-manga::after {
-  background: #000000;
-  border-color: var(--impact-color);
-}
-
-.sauce-word-bubble.is-sticker::after {
-  background: #12b76a;
-}
-
-.sauce-word-bubble.is-shout::after,
-.sauce-word-bubble.is-kanji::after {
-  background: var(--impact-color);
-}
-
-.sauce-word-bubble.is-outline::after,
-.sauce-word-bubble.is-banner::after,
-.sauce-word-bubble.is-raw::after {
-  display: none;
 }
 
 @keyframes result-shimmer {

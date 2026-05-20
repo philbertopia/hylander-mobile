@@ -276,7 +276,7 @@ export function SauceRoulette() {
       const bubbleCount = isSmallScreen() ? 5 : 9;
       const angle = -170 + index * (340 / Math.max(1, bubbleCount - 1)) + (Math.random() * 26 - 13);
       const distance = isSmallScreen() ? 92 + Math.random() * 84 : 130 + Math.random() * 150;
-      bubble.className = `sauce-word-bubble ${hasJapanese ? "is-kanji" : bubbleStyles[(index + Math.floor(Math.random() * bubbleStyles.length)) % bubbleStyles.length]}`;
+      bubble.className = `sauce-word ${hasJapanese ? "is-kanji" : bubbleStyles[(index + Math.floor(Math.random() * bubbleStyles.length)) % bubbleStyles.length]}`;
       bubble.textContent = word;
       bubble.style.setProperty("--impact-color", sauce.color);
       bubble.style.setProperty("--bubble-scale", `${(1.06 + Math.random() * 0.34).toFixed(2)}`);
