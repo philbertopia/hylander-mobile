@@ -90,7 +90,7 @@ export function HoursLocations() {
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="text-xl font-black uppercase leading-tight text-hyGreen sm:text-2xl">{venue.name}</h2>
-                {venue.note ? <span className="rounded-full bg-hyGreen px-2.5 py-1 text-xs font-black uppercase text-black shadow-[2px_2px_0_#ec4899]">{venue.note}</span> : null}
+                {venue.note ? <span className="text-xs font-black uppercase tracking-[0.18em] text-hyGreen [text-shadow:0_0_10px_#12b76a,2px_2px_0_#000]">{venue.note}</span> : null}
               </div>
               <span className={`rounded-full px-2.5 py-0.5 text-[0.68rem] font-black uppercase ${venue.isOpen ? "bg-hyGreen text-black" : "bg-white/15 text-white"}`}>
                 {venue.isOpen === null ? "Checking" : venue.isOpen ? "Open" : "Closed"}

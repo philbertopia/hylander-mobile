@@ -15,9 +15,11 @@ export default function CateringPage() {
         <section className="grid w-full max-w-3xl gap-4 rounded-lg border border-hyGreen bg-black p-4 text-center text-white shadow-sticker sm:p-6" data-animate="card">
           <h1 className="text-4xl font-black uppercase text-hyGreen sm:text-5xl" data-animate="title">Catering</h1>
           <figure className="overflow-hidden rounded-lg border-2 border-hyPink bg-black shadow-[4px_4px_0_#ec4899]" data-animate="image">
-            <Image className="h-auto w-full" src="/img/dev.png" alt="Hylander Mobile catering is under construction" width={1536} height={1024} priority unoptimized />
+            <Image className="h-auto w-full" src="/img/cater-coming-soon.png" alt="Hylander Mobile catering coming soon" width={1536} height={1024} priority unoptimized />
           </figure>
-          <p className="mx-auto mb-3 w-fit rounded-full bg-hyHotPink px-3 py-2 text-xs font-black uppercase">Coming Soon!</p>
+          <p className="mx-auto mb-2 w-full rounded-lg border-2 border-hyGreen bg-hyHotPink px-4 py-3 text-4xl font-black uppercase leading-none text-white shadow-[5px_5px_0_#12b76a,0_0_28px_rgba(236,72,153,0.7)] [text-shadow:3px_3px_0_#000] sm:text-7xl">
+            Coming Soon!
+          </p>
           <p className="mx-auto mt-3 max-w-xl font-bold text-white/80">
             Catering will be a separate inquiry and quote page. For now, use the contact page for event questions.
           </p>
