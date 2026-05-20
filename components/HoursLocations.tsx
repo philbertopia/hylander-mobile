@@ -16,6 +16,7 @@ type Venue = {
   openDays: number[];
   openHour: number;
   closeHour: number;
+  note?: string;
 };
 
 const venues: Venue[] = [
@@ -29,7 +30,8 @@ const venues: Venue[] = [
     menuLabel: "Order Salt Box",
     openDays: [2, 3, 4, 5, 6, 0],
     openHour: 20,
-    closeHour: 3
+    closeHour: 3,
+    note: "Open late"
   },
   {
     id: "night-swim",
@@ -92,6 +94,7 @@ export function HoursLocations() {
               </span>
             </div>
             <p className="text-sm font-black uppercase text-hyPurple">{venue.hours}</p>
+            {venue.note ? <p className="w-fit rounded-full bg-hyGreen px-2.5 py-1 text-xs font-black uppercase text-black shadow-[2px_2px_0_#ec4899]">{venue.note}</p> : null}
             <address className="text-sm not-italic font-bold text-white/80">{venue.address}</address>
             <div className="mt-0.5 flex flex-wrap gap-1.5">
               {venue.id === "salt-box" ? (
