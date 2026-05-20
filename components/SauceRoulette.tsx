@@ -340,7 +340,7 @@ export function SauceRoulette() {
   };
 
   return (
-    <section className="mx-auto mt-16 grid w-full max-w-[760px] justify-items-center max-sm:mt-12" aria-label="Sauce Roulette">
+    <section className="mx-auto mt-5 grid w-full max-w-[760px] justify-items-center max-sm:mt-4" aria-label="Sauce Roulette">
       <article className="relative grid w-full gap-2 overflow-visible rounded-lg border-2 border-black bg-cover bg-center p-3 text-white shadow-[0_18px_44px_rgba(7,7,12,0.28),4px_4px_0_#7c3aed]" style={{ backgroundImage: "url('/img/roulette/ChatGPT Image May 18, 2026, 03_11_10 PM.png?v=20260519')" }} data-animate="card">
         <figure className="pointer-events-none mx-auto -mt-[58px] mb-[-16px] aspect-[974/580] w-[min(92%,540px)] overflow-visible max-sm:-mt-[46px] max-sm:mb-[-12px] max-sm:w-[min(94%,390px)]">
           <div className={`h-full w-full origin-center ${isTitleCelebrating ? "animate-[wheel-impact_680ms_cubic-bezier(0.2,0.9,0.2,1)]" : ""}`}>

@@ -37,6 +37,11 @@ export default function HomePage() {
             Sauce Roulette flavors include Plain, Jerk, Buffalo, Curry, BBQ, Lemon Pepper, and Mango Pepper.
           </p>
         </section>
+        <section className="grid w-full max-w-[760px] gap-3" aria-label="Sauce Roulette title">
+          <h2 className="w-full rounded-lg border-2 border-black bg-hyGreen px-4 py-3 text-center text-3xl font-black uppercase leading-none text-black shadow-[4px_4px_0_#ec4899] sm:text-5xl" data-animate="title">
+            Sauce Roulette
+          </h2>
+        </section>
         <SauceRoulette />
       </main>
       <SiteFooter />
