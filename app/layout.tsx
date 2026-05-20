@@ -10,6 +10,16 @@ export const metadata: Metadata = {
   },
   description:
     "Hylander Mobile food truck menu in Kingston, NY with chop cheese, chop chicken, wings, sliders, pierogis, desserts, drinks, and Sauce Roulette flavors.",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.png?v=20260520",
+        type: "image/png"
+      }
+    ],
+    shortcut: "/favicon.png?v=20260520",
+    apple: "/favicon.png?v=20260520"
+  },
   robots: "index, follow",
   openGraph: {
     title: "Hylander Mobile Food Truck Menu",
