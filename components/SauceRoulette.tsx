@@ -85,7 +85,7 @@ const flavorBubbleWords: Record<string, string[]> = {
   "Lemon Pepper": ["POP!", "ZEST!", "ZING!", "SPARK!", "Kira!", "Suppai!", "Pika!", "Lemon blast!", "酸味", "光", "レモン", "キラ!"],
   "Mango Pepper": ["BAM!", "JUICY!", "TROPIC!", "ZAP!", "Uma!", "Karai!", "Maji uma!", "Mango storm!", "果実", "辛い", "南国", "マンゴー"]
 };
-const bubbleStyles = ["is-manga", "is-stamp", "is-sticker", "is-shout", "is-kanji"];
+const bubbleStyles = ["is-manga", "is-stamp", "is-sticker", "is-shout", "is-kanji", "is-outline", "is-banner", "is-raw"];
 
 export function SauceRoulette() {
   const [rotation, setRotation] = useState(0);
@@ -269,15 +269,17 @@ export function SauceRoulette() {
     comicPop.className = "comic-pop";
     comicPop.textContent = sauce.impactWord;
     const bubbleWords = flavorBubbleWords[sauce.name] ?? [sauce.impactWord, "YUM!", "SAUCE!", "WOW!"];
-    const wordBubbles = Array.from({ length: isSmallScreen() ? 5 : 8 }, (_, index) => {
+    const wordBubbles = Array.from({ length: isSmallScreen() ? 5 : 9 }, (_, index) => {
       const bubble = document.createElement("span");
       const word = bubbleWords[(index + Math.floor(Math.random() * bubbleWords.length)) % bubbleWords.length];
       const hasJapanese = /[^\u0000-\u007f]/.test(word);
-      const angle = -170 + index * (340 / Math.max(1, (isSmallScreen() ? 5 : 8) - 1)) + (Math.random() * 22 - 11);
-      const distance = isSmallScreen() ? 82 + Math.random() * 72 : 110 + Math.random() * 130;
-      bubble.className = `sauce-word-bubble ${hasJapanese ? "is-kanji" : bubbleStyles[index % bubbleStyles.length]}`;
+      const bubbleCount = isSmallScreen() ? 5 : 9;
+      const angle = -170 + index * (340 / Math.max(1, bubbleCount - 1)) + (Math.random() * 26 - 13);
+      const distance = isSmallScreen() ? 92 + Math.random() * 84 : 130 + Math.random() * 150;
+      bubble.className = `sauce-word-bubble ${hasJapanese ? "is-kanji" : bubbleStyles[(index + Math.floor(Math.random() * bubbleStyles.length)) % bubbleStyles.length]}`;
       bubble.textContent = word;
       bubble.style.setProperty("--impact-color", sauce.color);
+      bubble.style.setProperty("--bubble-scale", `${(1.06 + Math.random() * 0.34).toFixed(2)}`);
       bubble.style.setProperty("--impact-x", `${x}px`);
       bubble.style.setProperty("--impact-y", `${y}px`);
       bubble.style.setProperty("--bubble-x", `${Math.cos((angle * Math.PI) / 180) * distance}px`);
