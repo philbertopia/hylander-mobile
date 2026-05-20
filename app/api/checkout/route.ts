@@ -9,7 +9,6 @@ import { activeVenue } from "@/lib/venues";
 
 export async function POST(request: Request) {
   try {
-    const prisma = await getPrisma();
     const input = checkoutSchema.parse(await request.json());
     validateDeliveryArea(input);
 
@@ -18,9 +17,33 @@ export async function POST(request: Request) {
     }
 
     const totals = calculateOrder(input);
+    const orderNumber = createOrderNumber();
+    let prisma;
+
+    try {
+      prisma = await getPrisma();
+    } catch (error) {
+      if (error instanceof DatabaseUnavailableError) {
+        const paymentLink = await createSquarePaymentLink({
+          id: crypto.randomUUID(),
+          orderNumber,
+          totalCents: totals.totalCents
+        });
+
+        if (paymentLink) {
+          return NextResponse.json({
+            ...paymentLink,
+            databaseMode: "not_configured"
+          });
+        }
+      }
+
+      throw error;
+    }
+
     const order = await prisma.order.create({
       data: {
-        orderNumber: createOrderNumber(),
+        orderNumber,
         venueId: activeVenue.id,
         fulfillmentType: input.fulfillmentType,
         status: orderStatuses.pendingPayment,
