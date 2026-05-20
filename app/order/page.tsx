@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { OrderApp } from "@/components/OrderApp";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -16,6 +17,9 @@ export default function OrderPage({ searchParams }: { searchParams?: { order?: s
     <>
       <SiteHeader />
       <main className="mx-auto w-full max-w-7xl px-4 py-8 pb-24">
+        <figure className="mx-auto mb-5 w-full max-w-4xl overflow-hidden rounded-lg border-2 border-hyPink bg-black shadow-[5px_5px_0_#ec4899]" data-animate="image">
+          <Image className="h-auto w-full" src="/img/dev.png" alt="Hylander Mobile online ordering is under construction" width={1536} height={1024} priority unoptimized />
+        </figure>
         <section className="mb-6 rounded-lg border-2 border-black bg-white p-5 shadow-black" data-animate="card">
           <p className="mb-2 w-fit rounded-full bg-hyHotPink px-3 py-2 text-xs font-black uppercase text-white">Still in development</p>
           <h1 className="text-4xl font-black uppercase leading-none text-hyInk" data-animate="title">{activeVenue.name} Menu</h1>

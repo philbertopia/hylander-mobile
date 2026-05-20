@@ -70,7 +70,14 @@ export function HoursLocations() {
       </figure>
       <div className="grid gap-4 sm:grid-cols-2">
         {venueStatuses.map((venue) => (
-          <article key={venue.name} className="grid gap-1.5 rounded-lg border-2 border-hyPurple bg-black p-3 text-white shadow-[3px_3px_0_#7c3aed]" data-animate="card">
+          <article key={venue.name} className={`relative grid gap-1.5 overflow-hidden rounded-lg border-2 border-hyPurple bg-black p-3 text-white shadow-[3px_3px_0_#7c3aed] ${venue.menuDisabled ? "min-h-[184px]" : ""}`} data-animate="card">
+            {venue.menuDisabled ? (
+              <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-black/58 p-4 backdrop-brightness-50">
+                <span className="-rotate-3 rounded-lg border-2 border-hyGreen bg-hyHotPink px-5 py-3 text-2xl font-black uppercase leading-none text-white shadow-[4px_4px_0_#12b76a]">
+                  Coming Soon!
+                </span>
+              </div>
+            ) : null}
             <div className="flex flex-wrap items-start justify-between gap-2">
               <h2 className="text-xl font-black uppercase leading-tight text-hyGreen sm:text-2xl">{venue.name}</h2>
               <span className={`rounded-full px-2.5 py-0.5 text-[0.68rem] font-black uppercase ${venue.isOpen ? "bg-hyGreen text-black" : "bg-white/15 text-white"}`}>
