@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ZodError } from "zod";
 import { DatabaseUnavailableError, getPrisma } from "@/lib/db";
 import { orderStatuses, paymentStatuses } from "@/lib/constants";
 import { checkoutSchema, calculateOrder, createOrderNumber, validateDeliveryArea } from "@/lib/orders";
@@ -77,6 +78,26 @@ export async function POST(request: Request) {
   } catch (error) {
     if (error instanceof DatabaseUnavailableError) {
       return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+
+    if (error instanceof ZodError) {
+      const message = error.issues
+        .map((issue) => {
+          const field = issue.path.join(".");
+          if (field === "customerPhone") {
+            return "Please enter a phone number with at least 7 digits.";
+          }
+          if (field === "customerName") {
+            return "Please enter your name.";
+          }
+          if (field === "customerEmail") {
+            return "Please enter a valid email address or leave it blank.";
+          }
+          return issue.message;
+        })
+        .join(" ");
+
+      return NextResponse.json({ error: message || "Please check your order details." }, { status: 400 });
     }
 
     return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to create order." }, { status: 400 });

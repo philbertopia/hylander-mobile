@@ -23,6 +23,8 @@ export function OrderApp() {
   const [fulfillmentType, setFulfillmentType] = useState<"PICKUP" | "DELIVERY">("PICKUP");
   const [selectedModifiers, setSelectedModifiers] = useState<Record<string, string[]>>({});
   const [message, setMessage] = useState("");
+  const [cartNotice, setCartNotice] = useState("");
+  const [addedItemId, setAddedItemId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const subtotalCents = cart.reduce((sum, item) => sum + item.unitPriceCents * item.quantity, 0);
@@ -52,6 +54,14 @@ export function OrderApp() {
         modifierNames: modifiers.map((modifier) => modifier.name)
       }
     ]);
+    setAddedItemId(itemId);
+    setCartNotice(`${item.name} added to your order.`);
+    window.setTimeout(() => {
+      setAddedItemId((current) => (current === itemId ? "" : current));
+    }, 900);
+    window.setTimeout(() => {
+      setCartNotice((current) => (current === `${item.name} added to your order.` ? "" : current));
+    }, 2200);
   };
 
   const updateQuantity = (cartId: string, delta: number) => {
@@ -155,8 +165,13 @@ export function OrderApp() {
                       })}
                     </div>
                   ) : null}
-                  <button className="rounded-full bg-hyDeepGreen px-4 py-3 font-black uppercase text-white shadow-black" type="button" onClick={() => addItem(item.id)} data-animate="button">
-                    Add
+                  <button
+                    className={`rounded-full px-4 py-3 font-black uppercase text-white shadow-black transition-all duration-200 ${addedItemId === item.id ? "scale-[1.03] bg-hyHotPink ring-4 ring-hyGreen/60" : "bg-hyDeepGreen"}`}
+                    type="button"
+                    onClick={() => addItem(item.id)}
+                    data-animate="button"
+                  >
+                    {addedItemId === item.id ? "Added!" : "Add"}
                   </button>
                 </article>
               ))}
@@ -168,6 +183,7 @@ export function OrderApp() {
       <aside className="h-fit min-w-0 overflow-hidden rounded-lg border-2 border-black bg-black p-4 text-white shadow-sticker lg:sticky lg:top-24" data-animate="card">
         <p className="mb-1 w-fit rounded-full bg-hyHotPink px-3 py-1 text-xs font-black uppercase">{activeVenue.name}</p>
         <h2 className="text-2xl font-black uppercase text-hyGreen">Your Order</h2>
+        {cartNotice ? <p className="mt-2 rounded-lg border border-hyGreen bg-hyGreen px-3 py-2 text-sm font-black text-black">{cartNotice}</p> : null}
         <div className="mt-3 grid grid-cols-2 gap-2 rounded-lg bg-white/10 p-2">
           {(["PICKUP", "DELIVERY"] as const).map((type) => (
             <button key={type} className={`rounded-md px-3 py-2 text-sm font-black ${fulfillmentType === type ? "bg-hyPink text-white" : "bg-white text-black"}`} type="button" onClick={() => setFulfillmentType(type)} data-animate="button">
@@ -194,7 +210,7 @@ export function OrderApp() {
 
         <form className="mt-4 grid gap-3" onSubmit={submitOrder}>
           <input className="min-w-0 rounded-lg border border-white/20 bg-white/10 p-3 text-white placeholder:text-white/50" name="customerName" placeholder="Name" required />
-          <input className="min-w-0 rounded-lg border border-white/20 bg-white/10 p-3 text-white placeholder:text-white/50" name="customerPhone" placeholder="Phone" required />
+          <input className="min-w-0 rounded-lg border border-white/20 bg-white/10 p-3 text-white placeholder:text-white/50" name="customerPhone" placeholder="Phone" type="tel" minLength={7} required />
           <input className="min-w-0 rounded-lg border border-white/20 bg-white/10 p-3 text-white placeholder:text-white/50" name="customerEmail" placeholder="Email optional" type="email" />
           {fulfillmentType === "DELIVERY" ? (
             <div className="grid gap-2">
