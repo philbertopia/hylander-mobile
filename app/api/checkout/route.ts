@@ -7,6 +7,8 @@ import { isOrderingOpen } from "@/lib/hours";
 import { createSquarePaymentLink } from "@/lib/square";
 import { activeVenue } from "@/lib/venues";
 
+export const runtime = "nodejs";
+
 export async function POST(request: Request) {
   try {
     const input = checkoutSchema.parse(await request.json());
