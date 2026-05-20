@@ -34,7 +34,7 @@ const venues: Venue[] = [
     address: "744 Broadway, Kingston, NY 12401",
     href: "https://www.nightswimkingston.com/",
     menuHref: "#",
-    menuLabel: "Menu Coming Soon",
+    menuLabel: "Order Night Swim",
     menuDisabled: true,
     openDays: [2]
   }
@@ -70,10 +70,10 @@ export function HoursLocations() {
       </figure>
       <div className="grid gap-4 sm:grid-cols-2">
         {venueStatuses.map((venue) => (
-          <article key={venue.name} className={`relative grid gap-1.5 overflow-hidden rounded-lg border-2 border-hyPurple bg-black p-3 text-white shadow-[3px_3px_0_#7c3aed] ${venue.menuDisabled ? "min-h-[184px]" : ""}`} data-animate="card">
+          <article key={venue.name} className="relative grid gap-1.5 overflow-hidden rounded-lg border-2 border-hyPurple bg-black p-3 text-white shadow-[3px_3px_0_#7c3aed]" data-animate="card">
             {venue.menuDisabled ? (
-              <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-black/58 p-4 backdrop-brightness-50">
-                <span className="-rotate-3 rounded-lg border-2 border-hyGreen bg-hyHotPink px-5 py-3 text-2xl font-black uppercase leading-none text-white shadow-[4px_4px_0_#12b76a]">
+              <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-black/58 p-3 backdrop-brightness-50">
+                <span className="-rotate-3 rounded-lg border-2 border-hyGreen bg-hyHotPink px-4 py-2 text-xl font-black uppercase leading-none text-white shadow-[4px_4px_0_#12b76a] sm:text-2xl">
                   Coming Soon!
                 </span>
               </div>
