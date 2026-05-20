@@ -72,10 +72,11 @@ export function HoursLocations() {
         {venueStatuses.map((venue) => (
           <article key={venue.name} className="relative grid gap-1.5 overflow-hidden rounded-lg border-2 border-hyPurple bg-black p-3 text-white shadow-[3px_3px_0_#7c3aed]" data-animate="card">
             {venue.menuDisabled ? (
-              <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-black/58 p-3 backdrop-brightness-50">
-                <span className="-rotate-3 rounded-lg border-2 border-hyGreen bg-hyHotPink px-4 py-2 text-xl font-black uppercase leading-none text-white shadow-[4px_4px_0_#12b76a] sm:text-2xl">
-                  Coming Soon!
-                </span>
+              <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center bg-black/68 p-3 backdrop-brightness-50">
+                <div className="-rotate-3 rounded-lg border-2 border-hyGreen bg-hyHotPink px-5 py-3 text-center text-white shadow-[4px_4px_0_#12b76a,0_0_26px_rgba(236,72,153,0.75)] ring-2 ring-white/30">
+                  <span className="block text-[0.62rem] font-black uppercase tracking-[0.22em] text-hyGreen [text-shadow:1px_1px_0_#000]">Night Swim</span>
+                  <span className="block text-2xl font-black uppercase leading-none [text-shadow:2px_2px_0_#000] sm:text-3xl">Coming Soon!</span>
+                </div>
               </div>
             ) : null}
             <div className="flex flex-wrap items-start justify-between gap-2">
