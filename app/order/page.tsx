@@ -16,7 +16,7 @@ export default function OrderPage({ searchParams }: { searchParams?: { order?: s
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto w-full max-w-7xl px-4 py-8 pb-24">
+      <main className="mx-auto w-full max-w-7xl px-4 pb-8 pt-6">
         <figure className="mx-auto mb-5 w-full max-w-4xl overflow-hidden rounded-lg border-2 border-hyPink bg-black shadow-[5px_5px_0_#ec4899]" data-animate="image">
           <Image className="h-auto w-full" src="/img/dev.png" alt="Hylander Mobile online ordering is under construction" width={1536} height={1024} priority unoptimized />
         </figure>
