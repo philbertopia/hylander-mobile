@@ -82,6 +82,7 @@ export function SauceRoulette() {
         .join(", ")})`,
     []
   );
+  const showLoadingPhrase = isLoading && resultImage === workingImage;
 
   const prefersReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isSmallScreen = () => window.matchMedia("(max-width: 640px)").matches;
@@ -321,9 +322,11 @@ export function SauceRoulette() {
 
         <div ref={resultRef} className={`game-result relative mt-3 aspect-[3/2] w-full overflow-hidden rounded-3xl border-[3px] border-black bg-black shadow-[0_10px_24px_rgba(0,0,0,0.24)] ${isLoading ? "is-loading" : ""} ${isChanging ? "is-changing" : ""} ${isImpacting ? "is-impacting" : ""}`} data-sauce-result>
           <Image className="h-full w-full object-cover transition" src={resultImage} alt={resultAlt} width={1536} height={1024} unoptimized />
-          <span key={loadingPhrase} className={`loading-phrase absolute inset-x-[7%] bottom-[8%] text-center text-[clamp(0.92rem,4.3vw,1.85rem)] font-black uppercase leading-[0.95] text-white ${isLoading ? "block" : "hidden"}`}>
-            {loadingPhrase}
-          </span>
+          {showLoadingPhrase ? (
+            <span key={loadingPhrase} className="loading-phrase absolute inset-x-[7%] bottom-[8%] text-center text-[clamp(0.92rem,4.3vw,1.85rem)] font-black uppercase leading-[0.95] text-white">
+              {loadingPhrase}
+            </span>
+          ) : null}
         </div>
       </article>
       <div ref={burstRef} className="screen-burst" aria-hidden="true" />
