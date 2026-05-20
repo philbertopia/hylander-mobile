@@ -77,14 +77,15 @@ const flavorEmojis: Record<string, string[]> = {
   "Mango Pepper": ["\u{1F96D}", "\u{1F336}\uFE0F", "\u{1F4A5}", "\u{1F9E1}"]
 };
 const flavorBubbleWords: Record<string, string[]> = {
-  Plain: ["YUM!", "CLEAN!", "SOFT!", "MILD!", "Kawaii!", "Oishii!", "Shio!", "Tiny zing!"],
-  Jerk: ["ZAP!", "HOT!", "ISLAND!", "BOOM!", "Atsui!", "Karai!", "Sugoi!", "Fire walk!"],
-  Buffalo: ["HOT!", "BLAZE!", "TANG!", "POW!", "Karai!", "Atsui!", "Gao!", "Sauce storm!"],
-  Curry: ["SAUCE!", "GLOW!", "GOLD!", "SPICE!", "Oishii!", "Sugoi!", "Pika!", "Curry comet!"],
-  BBQ: ["BOOM!", "SMOKE!", "STICKY!", "YUM!", "Uma!", "Gao!", "Moku moku!", "Sweet heat!"],
-  "Lemon Pepper": ["POP!", "ZEST!", "ZING!", "SPARK!", "Kira!", "Suppai!", "Pika!", "Lemon blast!"],
-  "Mango Pepper": ["BAM!", "JUICY!", "TROPIC!", "ZAP!", "Uma!", "Karai!", "Maji uma!", "Mango storm!"]
+  Plain: ["YUM!", "CLEAN!", "SOFT!", "MILD!", "Kawaii!", "Oishii!", "Shio!", "Tiny zing!", "旨い", "塩", "白", "やさしい"],
+  Jerk: ["ZAP!", "HOT!", "ISLAND!", "BOOM!", "Atsui!", "Karai!", "Sugoi!", "Fire walk!", "辛い", "熱い", "炎", "南国"],
+  Buffalo: ["HOT!", "BLAZE!", "TANG!", "POW!", "Karai!", "Atsui!", "Gao!", "Sauce storm!", "辛口", "爆発", "炎", "ガオ!"],
+  Curry: ["SAUCE!", "GLOW!", "GOLD!", "SPICE!", "Oishii!", "Sugoi!", "Pika!", "Curry comet!", "旨い", "金色", "香り", "カレー"],
+  BBQ: ["BOOM!", "SMOKE!", "STICKY!", "YUM!", "Uma!", "Gao!", "Moku moku!", "Sweet heat!", "煙", "甘辛", "肉", "うまい"],
+  "Lemon Pepper": ["POP!", "ZEST!", "ZING!", "SPARK!", "Kira!", "Suppai!", "Pika!", "Lemon blast!", "酸味", "光", "レモン", "キラ!"],
+  "Mango Pepper": ["BAM!", "JUICY!", "TROPIC!", "ZAP!", "Uma!", "Karai!", "Maji uma!", "Mango storm!", "果実", "辛い", "南国", "マンゴー"]
 };
+const bubbleStyles = ["is-manga", "is-stamp", "is-sticker", "is-shout", "is-kanji"];
 
 export function SauceRoulette() {
   const [rotation, setRotation] = useState(0);
@@ -270,10 +271,12 @@ export function SauceRoulette() {
     const bubbleWords = flavorBubbleWords[sauce.name] ?? [sauce.impactWord, "YUM!", "SAUCE!", "WOW!"];
     const wordBubbles = Array.from({ length: isSmallScreen() ? 5 : 8 }, (_, index) => {
       const bubble = document.createElement("span");
+      const word = bubbleWords[(index + Math.floor(Math.random() * bubbleWords.length)) % bubbleWords.length];
+      const hasJapanese = /[^\u0000-\u007f]/.test(word);
       const angle = -170 + index * (340 / Math.max(1, (isSmallScreen() ? 5 : 8) - 1)) + (Math.random() * 22 - 11);
       const distance = isSmallScreen() ? 82 + Math.random() * 72 : 110 + Math.random() * 130;
-      bubble.className = "sauce-word-bubble";
-      bubble.textContent = bubbleWords[(index + Math.floor(Math.random() * bubbleWords.length)) % bubbleWords.length];
+      bubble.className = `sauce-word-bubble ${hasJapanese ? "is-kanji" : bubbleStyles[index % bubbleStyles.length]}`;
+      bubble.textContent = word;
       bubble.style.setProperty("--impact-color", sauce.color);
       bubble.style.setProperty("--impact-x", `${x}px`);
       bubble.style.setProperty("--impact-y", `${y}px`);

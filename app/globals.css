@@ -315,6 +315,50 @@ select {
   animation: sauce-word-bubble 1250ms cubic-bezier(0.18, 1.16, 0.28, 1) var(--delay) forwards;
 }
 
+.sauce-word-bubble.is-manga {
+  border-radius: 6px;
+  color: #ffffff;
+  background: #000000;
+  box-shadow: 3px 3px 0 var(--impact-color), 0 0 18px rgba(255, 255, 255, 0.66);
+  letter-spacing: 0.04em;
+}
+
+.sauce-word-bubble.is-stamp {
+  border-color: var(--impact-color);
+  border-radius: 10px;
+  color: var(--impact-color);
+  background: #ffffff;
+  box-shadow: 3px 3px 0 #000000, inset 0 0 0 3px rgba(0, 0, 0, 0.12);
+  transform-origin: center;
+}
+
+.sauce-word-bubble.is-sticker {
+  border-radius: 999px 8px 999px 8px;
+  color: #000000;
+  background: #12b76a;
+  box-shadow: 3px 3px 0 #000000, 0 0 18px var(--impact-color);
+}
+
+.sauce-word-bubble.is-shout {
+  border-radius: 4px 999px 4px 999px;
+  color: #ffffff;
+  background: var(--impact-color);
+  box-shadow: 4px 4px 0 #000000, 0 0 22px var(--impact-color);
+  font-size: clamp(1.02rem, 3.7vw, 1.72rem);
+}
+
+.sauce-word-bubble.is-kanji {
+  border-width: 4px;
+  border-radius: 8px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #000000, #4c1d95 68%, var(--impact-color));
+  box-shadow: 4px 4px 0 #000000, 0 0 24px var(--impact-color);
+  font-family: "Yu Gothic", "Meiryo", "MS Gothic", "Arial Rounded MT Bold", sans-serif;
+  font-size: clamp(1.18rem, 5vw, 2.25rem);
+  letter-spacing: 0.06em;
+  writing-mode: horizontal-tb;
+}
+
 .sauce-word-bubble::after {
   position: absolute;
   right: 18%;
@@ -326,6 +370,20 @@ select {
   background: #ffffff;
   content: "";
   transform: rotate(45deg);
+}
+
+.sauce-word-bubble.is-manga::after {
+  background: #000000;
+  border-color: var(--impact-color);
+}
+
+.sauce-word-bubble.is-sticker::after {
+  background: #12b76a;
+}
+
+.sauce-word-bubble.is-shout::after,
+.sauce-word-bubble.is-kanji::after {
+  background: var(--impact-color);
 }
 
 @keyframes result-shimmer {
