@@ -12,7 +12,7 @@ export default function ContactPage() {
   return (
     <>
       <SiteHeader />
-      <main className="grid min-h-screen place-items-start px-4 pb-9 pt-3 sm:pt-5 lg:place-items-center lg:py-9">
+      <main className="grid justify-items-center px-4 pb-8 pt-3 sm:pt-5 lg:pt-6">
         <section className="grid w-full max-w-[980px] gap-4 rounded-lg border border-hyPink/70 bg-black p-5 text-center text-white shadow-[0_18px_44px_rgba(7,7,12,0.26),4px_4px_0_#12b76a] sm:p-8" data-animate="card">
           <figure className="mx-auto w-full max-w-[760px] leading-none" data-animate="image">
             <Image className="h-auto w-full rounded-lg" src="/img/ChatGPT Image May 17, 2026, 08_54_41 PM.png" alt="Contact Us with kaiju artwork" width={1536} height={1024} unoptimized />
