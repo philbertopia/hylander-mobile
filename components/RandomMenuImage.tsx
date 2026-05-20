@@ -25,7 +25,7 @@ export function RandomMenuImage() {
       <h2 className="mx-auto w-fit rounded-lg border-2 border-black bg-hyGreen px-4 py-2 text-center text-3xl font-black uppercase leading-none text-black shadow-[4px_4px_0_#ec4899] sm:text-5xl" data-animate="title">
         Salt Box Menu
       </h2>
-      <figure className="m-0 overflow-hidden rounded-lg border-2 border-hyPurple bg-white leading-none shadow-[4px_4px_0_#7c3aed]" data-animate="image">
+      <figure className="m-0 overflow-hidden rounded-lg border-2 border-black bg-white leading-none shadow-[4px_4px_0_#ec4899]" data-animate="image">
         <Image
           className="block h-auto w-full select-none"
           src={randomMenu}
