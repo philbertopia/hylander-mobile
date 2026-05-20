@@ -88,13 +88,15 @@ export function HoursLocations() {
               </div>
             ) : null}
             <div className="flex flex-wrap items-start justify-between gap-2">
-              <h2 className="text-xl font-black uppercase leading-tight text-hyGreen sm:text-2xl">{venue.name}</h2>
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="text-xl font-black uppercase leading-tight text-hyGreen sm:text-2xl">{venue.name}</h2>
+                {venue.note ? <span className="rounded-full bg-hyGreen px-2.5 py-1 text-xs font-black uppercase text-black shadow-[2px_2px_0_#ec4899]">{venue.note}</span> : null}
+              </div>
               <span className={`rounded-full px-2.5 py-0.5 text-[0.68rem] font-black uppercase ${venue.isOpen ? "bg-hyGreen text-black" : "bg-white/15 text-white"}`}>
                 {venue.isOpen === null ? "Checking" : venue.isOpen ? "Open" : "Closed"}
               </span>
             </div>
             <p className="text-sm font-black uppercase text-hyPurple">{venue.hours}</p>
-            {venue.note ? <p className="w-fit rounded-full bg-hyGreen px-2.5 py-1 text-xs font-black uppercase text-black shadow-[2px_2px_0_#ec4899]">{venue.note}</p> : null}
             <address className="text-sm not-italic font-bold text-white/80">{venue.address}</address>
             <div className="mt-0.5 flex flex-wrap gap-1.5">
               {venue.id === "salt-box" ? (
