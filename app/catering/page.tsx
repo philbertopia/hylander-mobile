@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -23,6 +24,14 @@ export default function CateringPage() {
           <p className="mx-auto mt-3 max-w-xl font-bold text-white/80">
             Catering will be a separate inquiry and quote page. For now, use the contact page for event questions.
           </p>
+          <div className="mx-auto flex flex-wrap justify-center gap-3">
+            <Link className="rounded-full bg-hyGreen px-5 py-3 text-sm font-black uppercase text-black shadow-[4px_4px_0_#ec4899]" href="/contact" data-animate="button">
+              Contact Us
+            </Link>
+            <a className="rounded-full bg-hyHotPink px-5 py-3 text-sm font-black uppercase text-white shadow-[4px_4px_0_#12b76a]" href="https://www.instagram.com/hylandermobile" target="_blank" rel="noopener noreferrer" data-animate="button">
+              Instagram
+            </a>
+          </div>
         </section>
       </main>
       <SiteFooter />
