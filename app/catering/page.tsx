@@ -11,7 +11,7 @@ export default function CateringPage() {
   return (
     <>
       <SiteHeader />
-      <main className="grid place-items-start px-4 pb-8 pt-4 sm:pt-6">
+      <main className="grid justify-items-center px-4 pb-8 pt-4 sm:pt-6">
         <section className="grid w-full max-w-3xl gap-4 rounded-lg border border-hyGreen bg-black p-4 text-center text-white shadow-sticker sm:p-6" data-animate="card">
           <h1 className="text-4xl font-black uppercase text-hyGreen sm:text-5xl" data-animate="title">Catering</h1>
           <figure className="overflow-hidden rounded-lg border-2 border-hyPink bg-black shadow-[4px_4px_0_#ec4899]" data-animate="image">
