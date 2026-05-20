@@ -214,7 +214,7 @@ export function OrderApp() {
             <div className="flex justify-between text-xl text-hyGreen"><span>Total</span><span>{formatMoney(totalCents)}</span></div>
           </div>
           <button className="rounded-full bg-hyPink px-4 py-3 font-black uppercase text-white shadow-black disabled:opacity-60" disabled={isSubmitting || !cart.length} type="submit" data-animate="button">
-            {isSubmitting ? "Sending..." : "Mock Checkout"}
+            {isSubmitting ? "Sending..." : "Checkout"}
           </button>
           {message ? <p className="rounded-lg bg-white/10 p-3 text-sm font-bold">{message}</p> : null}
         </form>

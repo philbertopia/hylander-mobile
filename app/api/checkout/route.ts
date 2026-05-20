@@ -50,6 +50,14 @@ export async function POST(request: Request) {
 
     const paymentLink = await createSquarePaymentLink(order);
     if (paymentLink) {
+      await prisma.order.update({
+        where: { id: order.id },
+        data: {
+          squarePaymentLinkId: paymentLink.paymentLinkId || null,
+          squareOrderId: paymentLink.squareOrderId || null
+        }
+      });
+
       return NextResponse.json(paymentLink);
     }
 
