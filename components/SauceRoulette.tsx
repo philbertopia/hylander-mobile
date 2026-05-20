@@ -25,6 +25,28 @@ const sauces: Sauce[] = [
 const workingImage = "/img/roulette/flavors/working.png?v=20260519";
 const startImage = "/img/roulette/flavors/start.png?v=20260519";
 const sliceSize = 360 / sauces.length;
+const loadingPhrases = [
+  "Summoning sauce spirits...",
+  "Consulting the flavor kaiju...",
+  "Shaking the pepper portal...",
+  "Waking up the wing wizard...",
+  "Negotiating with ranch...",
+  "Charging the chop cheese reactor...",
+  "Stirring the chaos gravy...",
+  "Opening the sauce dimension...",
+  "Asking the mango oracle...",
+  "Buffalo thunder loading...",
+  "Lemon pepper lightning...",
+  "Curry comet incoming...",
+  "BBQ smoke signal sent...",
+  "Jerk volcano rumbling...",
+  "Plain but suspicious...",
+  "Flavor council voting...",
+  "Sauce goblet spinning...",
+  "Tiny kaiju taste test...",
+  "Seasoning the timeline...",
+  "Preparing delicious trouble..."
+];
 const flavorEmojis: Record<string, string[]> = {
   Plain: ["\u{1F9C2}", "\u{1F90D}", "\u{1F95B}", "\u2728"],
   Jerk: ["\u{1F336}\uFE0F", "\u{1F525}", "\u{1F3DD}\uFE0F", "\u26A1"],
@@ -45,6 +67,7 @@ export function SauceRoulette() {
   const [isWheelImpacting, setIsWheelImpacting] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [isTitleCelebrating, setIsTitleCelebrating] = useState(false);
+  const [loadingPhrase, setLoadingPhrase] = useState(loadingPhrases[0]);
   const burstRef = useRef<HTMLDivElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -242,11 +265,19 @@ export function SauceRoulette() {
     const rotationDelta = (targetRotation - currentPosition + 360) % 360;
     setRotation((current) => current + 1080 + rotationDelta);
     setIsLoading(true);
+    const phraseStart = Math.floor(Math.random() * loadingPhrases.length);
+    setLoadingPhrase(loadingPhrases[phraseStart]);
+    const phraseTimers = [360, 760, 1120].map((delay, offset) =>
+      window.setTimeout(() => {
+        setLoadingPhrase(loadingPhrases[(phraseStart + offset + 1 + Math.floor(Math.random() * 4)) % loadingPhrases.length]);
+      }, delay)
+    );
     swapResultImage(workingImage, "Sauce Roulette is loading");
     setIsTitleCelebrating(false);
     window.setTimeout(() => setIsTitleCelebrating(true), 160);
 
     window.setTimeout(async () => {
+      phraseTimers.forEach((timer) => window.clearTimeout(timer));
       setIsLoading(false);
       setIsTitleCelebrating(false);
       await swapResultImage(sauce.image, `${sauce.name} sauce result`);
@@ -262,7 +293,7 @@ export function SauceRoulette() {
 
   return (
     <section className="mx-auto mt-16 grid w-full max-w-[760px] justify-items-center max-sm:mt-12" aria-label="Sauce Roulette">
-      <article className="relative grid w-full gap-2 overflow-visible rounded-lg border-2 border-hyPurple bg-cover bg-center p-3 text-white shadow-[0_18px_44px_rgba(7,7,12,0.28),4px_4px_0_#7c3aed]" style={{ backgroundImage: "url('/img/roulette/ChatGPT Image May 18, 2026, 03_11_10 PM.png?v=20260519')" }} data-animate="card">
+      <article className="relative grid w-full gap-2 overflow-visible rounded-lg border-2 border-black bg-cover bg-center p-3 text-white shadow-[0_18px_44px_rgba(7,7,12,0.28),4px_4px_0_#7c3aed]" style={{ backgroundImage: "url('/img/roulette/ChatGPT Image May 18, 2026, 03_11_10 PM.png?v=20260519')" }} data-animate="card">
         <figure className="pointer-events-none mx-auto -mt-[58px] mb-[-16px] aspect-[974/580] w-[min(92%,540px)] overflow-visible max-sm:-mt-[46px] max-sm:mb-[-12px] max-sm:w-[min(94%,390px)]">
           <div className={`h-full w-full origin-center ${isTitleCelebrating ? "animate-[wheel-impact_680ms_cubic-bezier(0.2,0.9,0.2,1)]" : ""}`}>
             <div className="h-full w-full overflow-hidden">
@@ -290,7 +321,9 @@ export function SauceRoulette() {
 
         <div ref={resultRef} className={`game-result relative mt-3 aspect-[3/2] w-full overflow-hidden rounded-3xl border-[3px] border-black bg-black shadow-[0_10px_24px_rgba(0,0,0,0.24)] ${isLoading ? "is-loading" : ""} ${isChanging ? "is-changing" : ""} ${isImpacting ? "is-impacting" : ""}`} data-sauce-result>
           <Image className="h-full w-full object-cover transition" src={resultImage} alt={resultAlt} width={1536} height={1024} unoptimized />
-          <span className={`absolute inset-x-[8%] bottom-[9%] text-center text-[clamp(1.05rem,5vw,2rem)] font-black uppercase text-white [text-shadow:3px_3px_0_#000,0_0_16px_rgba(18,183,106,0.78)] ${isLoading ? "block" : "hidden"}`}>Loading...</span>
+          <span key={loadingPhrase} className={`loading-phrase absolute inset-x-[7%] bottom-[8%] text-center text-[clamp(0.92rem,4.3vw,1.85rem)] font-black uppercase leading-[0.95] text-white ${isLoading ? "block" : "hidden"}`}>
+            {loadingPhrase}
+          </span>
         </div>
       </article>
       <div ref={burstRef} className="screen-burst" aria-hidden="true" />
