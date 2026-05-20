@@ -45,7 +45,27 @@ const loadingPhrases = [
   "Sauce goblet spinning...",
   "Tiny kaiju taste test...",
   "Seasoning the timeline...",
-  "Preparing delicious trouble..."
+  "Preparing delicious trouble...",
+  "Checking the hot sauce horoscope...",
+  "Polishing the flavor crown...",
+  "Teaching buffalo to behave...",
+  "Dusting the lemon pepper moon...",
+  "Loading snack destiny...",
+  "Assembling the sauce council...",
+  "Putting BBQ in charge...",
+  "Letting curry make a speech...",
+  "Mango pepper entering orbit...",
+  "Plain sauce acting mysterious...",
+  "Measuring chaos by the spoonful...",
+  "Reading the sacred takeout scroll...",
+  "Calibrating the crunch meter...",
+  "Sending smoke signals to Salt Box...",
+  "Blessing the chicken bits...",
+  "Spinning the flavor satellite...",
+  "Heating up the sauce engine...",
+  "Choosing your edible plot twist...",
+  "Counting tiny flavor explosions...",
+  "Calling dibs on extra napkins..."
 ];
 const flavorEmojis: Record<string, string[]> = {
   Plain: ["\u{1F9C2}", "\u{1F90D}", "\u{1F95B}", "\u2728"],
@@ -268,18 +288,11 @@ export function SauceRoulette() {
     setIsLoading(true);
     const phraseStart = Math.floor(Math.random() * loadingPhrases.length);
     setLoadingPhrase(loadingPhrases[phraseStart]);
-    const shouldShowSecondPhrase = Math.random() > 0.35;
-    const phraseTimers = shouldShowSecondPhrase ? [840].map((delay, offset) =>
-      window.setTimeout(() => {
-        setLoadingPhrase(loadingPhrases[(phraseStart + offset + 3 + Math.floor(Math.random() * 6)) % loadingPhrases.length]);
-      }, delay)
-    ) : [];
     swapResultImage(workingImage, "Sauce Roulette is loading");
     setIsTitleCelebrating(false);
     window.setTimeout(() => setIsTitleCelebrating(true), 160);
 
     window.setTimeout(async () => {
-      phraseTimers.forEach((timer) => window.clearTimeout(timer));
       setIsLoading(false);
       setIsTitleCelebrating(false);
       await swapResultImage(sauce.image, `${sauce.name} sauce result`);
