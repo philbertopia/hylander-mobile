@@ -76,6 +76,15 @@ const flavorEmojis: Record<string, string[]> = {
   "Lemon Pepper": ["\u{1F34B}", "\u{1F7E1}", "\u2728", "\u{1F9C2}"],
   "Mango Pepper": ["\u{1F96D}", "\u{1F336}\uFE0F", "\u{1F4A5}", "\u{1F9E1}"]
 };
+const flavorBubbleWords: Record<string, string[]> = {
+  Plain: ["YUM!", "CLEAN!", "SOFT!", "MILD!", "Kawaii!", "Oishii!", "Shio!", "Tiny zing!"],
+  Jerk: ["ZAP!", "HOT!", "ISLAND!", "BOOM!", "Atsui!", "Karai!", "Sugoi!", "Fire walk!"],
+  Buffalo: ["HOT!", "BLAZE!", "TANG!", "POW!", "Karai!", "Atsui!", "Gao!", "Sauce storm!"],
+  Curry: ["SAUCE!", "GLOW!", "GOLD!", "SPICE!", "Oishii!", "Sugoi!", "Pika!", "Curry comet!"],
+  BBQ: ["BOOM!", "SMOKE!", "STICKY!", "YUM!", "Uma!", "Gao!", "Moku moku!", "Sweet heat!"],
+  "Lemon Pepper": ["POP!", "ZEST!", "ZING!", "SPARK!", "Kira!", "Suppai!", "Pika!", "Lemon blast!"],
+  "Mango Pepper": ["BAM!", "JUICY!", "TROPIC!", "ZAP!", "Uma!", "Karai!", "Maji uma!", "Mango storm!"]
+};
 
 export function SauceRoulette() {
   const [rotation, setRotation] = useState(0);
@@ -258,7 +267,23 @@ export function SauceRoulette() {
     shockwave.className = "flavor-shockwave";
     comicPop.className = "comic-pop";
     comicPop.textContent = sauce.impactWord;
-    layer.append(screenWash, shockwave, comicPop);
+    const bubbleWords = flavorBubbleWords[sauce.name] ?? [sauce.impactWord, "YUM!", "SAUCE!", "WOW!"];
+    const wordBubbles = Array.from({ length: isSmallScreen() ? 5 : 8 }, (_, index) => {
+      const bubble = document.createElement("span");
+      const angle = -170 + index * (340 / Math.max(1, (isSmallScreen() ? 5 : 8) - 1)) + (Math.random() * 22 - 11);
+      const distance = isSmallScreen() ? 82 + Math.random() * 72 : 110 + Math.random() * 130;
+      bubble.className = "sauce-word-bubble";
+      bubble.textContent = bubbleWords[(index + Math.floor(Math.random() * bubbleWords.length)) % bubbleWords.length];
+      bubble.style.setProperty("--impact-color", sauce.color);
+      bubble.style.setProperty("--impact-x", `${x}px`);
+      bubble.style.setProperty("--impact-y", `${y}px`);
+      bubble.style.setProperty("--bubble-x", `${Math.cos((angle * Math.PI) / 180) * distance}px`);
+      bubble.style.setProperty("--bubble-y", `${Math.sin((angle * Math.PI) / 180) * distance}px`);
+      bubble.style.setProperty("--bubble-rotate", `${Math.random() * 34 - 17}deg`);
+      bubble.style.setProperty("--delay", `${120 + Math.random() * 180}ms`);
+      return bubble;
+    });
+    layer.append(screenWash, shockwave, comicPop, ...wordBubbles);
     setIsImpacting(false);
     setIsWheelImpacting(false);
     window.requestAnimationFrame(() => {
@@ -269,9 +294,10 @@ export function SauceRoulette() {
       screenWash.remove();
       shockwave.remove();
       comicPop.remove();
+      wordBubbles.forEach((bubble) => bubble.remove());
       setIsImpacting(false);
       setIsWheelImpacting(false);
-    }, 1500);
+    }, 1900);
   };
 
   const spin = async () => {
