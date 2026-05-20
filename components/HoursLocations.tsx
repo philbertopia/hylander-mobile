@@ -27,7 +27,7 @@ const venues: Venue[] = [
     address: "10 Crown St, Kingston, NY 12401",
     href: "https://www.thesaltbox.bar/",
     menuHref: "/order?venue=salt-box",
-    menuLabel: "Order Salt Box",
+    menuLabel: "Order",
     openDays: [2, 3, 4, 5, 6, 0],
     openHour: 20,
     closeHour: 3,
@@ -35,12 +35,12 @@ const venues: Venue[] = [
   },
   {
     id: "night-swim",
-    name: "Night Swim Pop-Up",
+    name: "Night Swim Bar",
     hours: "Tuesdays, 7 PM-4 AM",
     address: "744 Broadway, Kingston, NY 12401",
     href: "https://www.nightswimkingston.com/",
     menuHref: "#",
-    menuLabel: "Order Night Swim",
+    menuLabel: "Order",
     menuDisabled: true,
     openDays: [2],
     openHour: 19,
@@ -90,7 +90,7 @@ export function HoursLocations() {
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="text-xl font-black uppercase leading-tight text-hyGreen sm:text-2xl">{venue.name}</h2>
-                {venue.note ? <span className="text-xs font-black uppercase tracking-[0.18em] text-hyGreen [text-shadow:0_0_10px_#12b76a,2px_2px_0_#000]">{venue.note}</span> : null}
+                {venue.note ? <span className="text-xs font-black uppercase tracking-[0.18em] text-hyPink [text-shadow:0_0_8px_#ec4899,0_0_18px_rgba(236,72,153,0.9),2px_2px_0_#000]">{venue.note}</span> : null}
               </div>
               <span className={`rounded-full px-2.5 py-0.5 text-[0.68rem] font-black uppercase ${venue.isOpen ? "bg-hyGreen text-black" : "bg-white/15 text-white"}`}>
                 {venue.isOpen === null ? "Checking" : venue.isOpen ? "Open" : "Closed"}
@@ -98,27 +98,27 @@ export function HoursLocations() {
             </div>
             <p className="text-sm font-black uppercase text-hyPurple">{venue.hours}</p>
             <address className="text-sm not-italic font-bold text-white/80">{venue.address}</address>
-            <div className="mt-0.5 flex flex-wrap gap-1.5">
+            <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
               {venue.id === "salt-box" ? (
-                <a className="w-fit rounded-full bg-hyGreen px-3 py-1.5 text-xs font-black uppercase text-black shadow-[inset_0_-3px_0_#087443]" href="#menu" data-animate="button">
+                <a className="inline-flex min-h-9 w-fit items-center justify-center rounded-full border-2 border-transparent bg-hyGreen px-3 py-1.5 text-xs font-black uppercase leading-none text-black shadow-[inset_0_-3px_0_#087443]" href="#menu" data-animate="button">
                   Menu
                 </a>
               ) : (
-                <span className="w-fit cursor-not-allowed rounded-full bg-hyGreen px-3 py-1.5 text-xs font-black uppercase text-black opacity-60 shadow-[inset_0_-3px_0_#087443]" aria-disabled="true">
+                <span className="inline-flex min-h-9 w-fit cursor-not-allowed items-center justify-center rounded-full border-2 border-transparent bg-hyGreen px-3 py-1.5 text-xs font-black uppercase leading-none text-black opacity-60 shadow-[inset_0_-3px_0_#087443]" aria-disabled="true">
                   Menu
                 </span>
               )}
               {venue.menuDisabled ? (
-                <span className="w-fit cursor-not-allowed rounded-full bg-hyPink/60 px-3 py-1.5 text-xs font-black uppercase text-white shadow-[inset_0_-3px_0_rgba(190,24,93,0.72)]" aria-disabled="true">
+                <span className="inline-flex min-h-10 w-fit cursor-not-allowed items-center justify-center rounded-full border-2 border-white/60 bg-hyPink/60 px-4 py-2 text-sm font-black uppercase leading-none text-white opacity-75 shadow-[0_0_14px_rgba(236,72,153,0.45),inset_0_-4px_0_rgba(190,24,93,0.72)]" aria-disabled="true">
                   {venue.menuLabel}
                 </span>
               ) : (
-                <a className="w-fit rounded-full bg-hyPink px-3 py-1.5 text-xs font-black uppercase text-white shadow-[inset_0_-3px_0_#be185d]" href={venue.menuHref} target={venue.menuExternal ? "_blank" : undefined} rel={venue.menuExternal ? "noopener noreferrer" : undefined} data-animate="button">
+                <a className="inline-flex min-h-10 w-fit items-center justify-center rounded-full border-2 border-white bg-hyPink px-4 py-2 text-sm font-black uppercase leading-none text-white shadow-[0_0_18px_rgba(236,72,153,0.72),inset_0_-4px_0_#be185d]" href={venue.menuHref} target={venue.menuExternal ? "_blank" : undefined} rel={venue.menuExternal ? "noopener noreferrer" : undefined} data-animate="button">
                   {venue.menuLabel}
                 </a>
               )}
-              <a className="w-fit rounded-full bg-hyDeepPurple px-3 py-1.5 text-xs font-black uppercase text-white shadow-[inset_0_-3px_0_#7c3aed]" href={venue.href} target="_blank" rel="noopener noreferrer" data-animate="button">
-                Visit Website
+              <a className="inline-flex min-h-9 w-fit items-center justify-center rounded-full border-2 border-transparent bg-hyDeepPurple px-3 py-1.5 text-xs font-black uppercase leading-none text-white shadow-[inset_0_-3px_0_#7c3aed]" href={venue.href} target="_blank" rel="noopener noreferrer" data-animate="button">
+                {venue.name}
               </a>
             </div>
           </article>

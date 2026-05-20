@@ -340,17 +340,31 @@ export function SauceRoulette() {
   };
 
   return (
-    <section className="mx-auto mt-5 grid w-full max-w-[760px] justify-items-center max-sm:mt-4" aria-label="Sauce Roulette">
+    <section className="mx-auto -mt-2 grid w-full max-w-[760px] justify-items-center max-sm:-mt-2" aria-label="Sauce Roulette">
       <article className="relative grid w-full gap-2 overflow-visible rounded-lg border-2 border-black bg-cover bg-center p-3 text-white shadow-[0_18px_44px_rgba(7,7,12,0.28),4px_4px_0_#7c3aed]" style={{ backgroundImage: "url('/img/roulette/ChatGPT Image May 18, 2026, 03_11_10 PM.png?v=20260519')" }} data-animate="card">
         <figure className="pointer-events-none mx-auto -mt-[58px] mb-[-16px] aspect-[974/580] w-[min(92%,540px)] overflow-visible max-sm:-mt-[46px] max-sm:mb-[-12px] max-sm:w-[min(94%,390px)]">
           <div className={`h-full w-full origin-center ${isTitleCelebrating ? "animate-[wheel-impact_680ms_cubic-bezier(0.2,0.9,0.2,1)]" : ""}`}>
             <div className="h-full w-full overflow-hidden">
-              <Image className="block h-auto w-full -translate-y-[20.8%]" src="/img/roulette/roulette-title.png" alt="Sauce Roulette" width={1024} height={1536} sizes="(max-width: 640px) 390px, 540px" priority />
+              <Image className="block h-auto w-full" style={{ transform: "translateY(calc(-20.8% + 2px))" }} src="/img/roulette/roulette-title.png" alt="Sauce Roulette" width={1024} height={1536} sizes="(max-width: 640px) 390px, 540px" priority />
             </div>
           </div>
         </figure>
 
-        <div ref={wheelRef} className={`roulette-stage relative mx-auto mt-1 aspect-square w-full max-w-[420px] rounded-full drop-shadow-2xl max-sm:max-w-[320px] ${isWheelImpacting ? "is-impacting" : ""}`} aria-label="Sauce roulette wheel">
+        <div
+          ref={wheelRef}
+          className={`roulette-stage relative mx-auto mt-1 aspect-square w-full max-w-[420px] cursor-pointer rounded-full drop-shadow-2xl outline-none transition-transform focus-visible:ring-4 focus-visible:ring-hyPink focus-visible:ring-offset-4 focus-visible:ring-offset-black active:scale-[0.98] max-sm:max-w-[320px] ${isSpinning ? "cursor-wait" : ""} ${isWheelImpacting ? "is-impacting" : ""}`}
+          role="button"
+          tabIndex={isSpinning ? -1 : 0}
+          aria-label={isSpinning ? "Sauce roulette is spinning" : "Spin Sauce Roulette"}
+          aria-disabled={isSpinning}
+          onClick={spin}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              spin();
+            }
+          }}
+        >
           <div className="absolute left-1/2 top-[-8px] z-10 h-0 w-0 -translate-x-1/2 border-l-[19px] border-r-[19px] border-t-[36px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_4px_0_#000]" />
           <div className="absolute inset-1/2 z-[4] h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-[5px] border-black bg-hyGreen shadow-[0_0_0_5px_#fff,0_0_0_10px_#000]" />
           <div className="roulette-wheel relative h-full w-full overflow-hidden rounded-full border-[10px] border-black p-[18px] shadow-[inset_0_0_0_6px_#fff,inset_0_0_0_12px_#12b76a,inset_0_0_0_17px_#000,inset_0_0_38px_rgba(0,0,0,0.42),0_12px_28px_rgba(0,0,0,0.35)]" style={{ background: wheelBackground, transform: `rotate(${rotation}deg)` }}>
