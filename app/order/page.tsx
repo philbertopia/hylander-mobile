@@ -21,7 +21,7 @@ export default function OrderPage({ searchParams }: { searchParams?: { order?: s
           <Image className="h-auto w-full" src="/img/dev.png" alt="Hylander Mobile online ordering is under construction" width={1536} height={1024} priority unoptimized />
         </figure>
         <section className="mb-6 rounded-lg border-2 border-black bg-white p-5 shadow-black" data-animate="card">
-          <p className="mb-2 w-fit rounded-full bg-hyHotPink px-3 py-2 text-xs font-black uppercase text-white">Still in development</p>
+          <p className="mb-2 w-fit rounded-full bg-hyHotPink px-3 py-2 text-xs font-black uppercase text-white">Still in development 🛠️✨</p>
           <h1 className="text-4xl font-black uppercase leading-none text-hyInk" data-animate="title">{activeVenue.name} Menu</h1>
           <p className="mt-3 rounded-lg border-2 border-black bg-hyGreen p-3 text-lg font-black uppercase text-black shadow-[4px_4px_0_#ec4899]">
             Online ordering, pickups, and deliveries coming soon!
