@@ -268,11 +268,12 @@ export function SauceRoulette() {
     setIsLoading(true);
     const phraseStart = Math.floor(Math.random() * loadingPhrases.length);
     setLoadingPhrase(loadingPhrases[phraseStart]);
-    const phraseTimers = [360, 760, 1120].map((delay, offset) =>
+    const shouldShowSecondPhrase = Math.random() > 0.35;
+    const phraseTimers = shouldShowSecondPhrase ? [840].map((delay, offset) =>
       window.setTimeout(() => {
-        setLoadingPhrase(loadingPhrases[(phraseStart + offset + 1 + Math.floor(Math.random() * 4)) % loadingPhrases.length]);
+        setLoadingPhrase(loadingPhrases[(phraseStart + offset + 3 + Math.floor(Math.random() * 6)) % loadingPhrases.length]);
       }, delay)
-    );
+    ) : [];
     swapResultImage(workingImage, "Sauce Roulette is loading");
     setIsTitleCelebrating(false);
     window.setTimeout(() => setIsTitleCelebrating(true), 160);
