@@ -6,11 +6,13 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
+    const databaseSource = process.env.DATABASE_URL ? "DATABASE_URL" : process.env.POSTGRES_PRISMA_URL ? "POSTGRES_PRISMA_URL" : "missing";
     const prisma = await getPrisma();
     await prisma.$queryRaw`SELECT 1`;
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, databaseSource });
   } catch (error) {
     const errorName = error instanceof Error ? error.name : "DatabaseError";
-    return NextResponse.json({ ok: false, error: errorName }, { status: 503 });
+    const errorCode = typeof error === "object" && error && "code" in error && typeof error.code === "string" ? error.code : null;
+    return NextResponse.json({ ok: false, error: errorName, code: errorCode }, { status: 503 });
   }
 }
