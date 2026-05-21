@@ -13,6 +13,10 @@ export async function GET() {
   } catch (error) {
     const errorName = error instanceof Error ? error.name : "DatabaseError";
     const errorCode = typeof error === "object" && error && "code" in error && typeof error.code === "string" ? error.code : null;
-    return NextResponse.json({ ok: false, error: errorName, code: errorCode }, { status: 503 });
+    const message =
+      error instanceof Error
+        ? error.message.replace(/postgres(?:ql)?:\/\/[^\s"'`]+/g, "postgresql://[redacted]").slice(0, 220)
+        : null;
+    return NextResponse.json({ ok: false, error: errorName, code: errorCode, message }, { status: 503 });
   }
 }
