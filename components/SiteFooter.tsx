@@ -3,8 +3,9 @@ import { InstagramIcon } from "@/components/InstagramIcon";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto bg-black px-4 pb-8 pt-5 text-white">
-      <div className="mx-auto grid w-full max-w-6xl gap-4 text-center sm:grid-cols-[1.4fr_0.8fr_1fr] sm:items-center sm:text-left">
+    <footer className="mt-auto bg-black pb-8 text-white">
+      <div className="footer-checker" aria-hidden="true" />
+      <div className="mx-auto grid w-full max-w-6xl gap-4 px-4 pt-5 text-center sm:grid-cols-[1.4fr_0.8fr_1fr] sm:items-center sm:text-left">
         <div>
           <strong className="block text-lg text-hyPurple">Hylander Mobile</strong>
           <span className="text-sm font-bold">Little cart. Big flavor.</span>
@@ -26,6 +27,8 @@ export function SiteFooter() {
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/contact">Contact</Link>
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/careers">Careers</Link>
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/legal">Legal</Link>
+          <a className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="https://www.thesaltbox.bar/" target="_blank" rel="noopener noreferrer">Salt Box Bar</a>
+          <a className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="https://www.nightswimkingston.com/" target="_blank" rel="noopener noreferrer">Night Swim</a>
         </nav>
         <div className="text-center text-xs font-bold sm:col-span-3">
           Made by <a className="underline decoration-hyPurple underline-offset-4" href="https://tree-rouge.vercel.app/" target="_blank" rel="noopener">TREE</a>

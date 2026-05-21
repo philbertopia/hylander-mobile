@@ -35,7 +35,7 @@ const venues: Venue[] = [
   },
   {
     id: "night-swim",
-    name: "Night Swim Bar",
+    name: "Night Swim",
     hours: "Tuesdays, 7 PM-4 AM",
     address: "744 Broadway, Kingston, NY 12401",
     href: "https://www.nightswimkingston.com/",
