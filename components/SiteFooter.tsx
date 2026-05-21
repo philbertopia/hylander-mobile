@@ -7,7 +7,7 @@ export function SiteFooter() {
       <div className="footer-checker" aria-hidden="true" />
       <div className="mx-auto grid w-full max-w-6xl gap-4 px-4 pt-5 text-center sm:grid-cols-[1.4fr_0.8fr_1fr] sm:items-center sm:text-left">
         <div>
-          <strong className="block text-lg text-hyPurple">Hylander Mobile</strong>
+          <strong className="block text-lg text-hyPurple">Hylander Mobile © 2026</strong>
           <span className="text-sm font-bold">Little cart. Big flavor.</span>
         </div>
         <div className="flex justify-center">
