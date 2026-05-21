@@ -4,19 +4,19 @@ const globalForPrisma = globalThis as unknown as {
 
 export class DatabaseUnavailableError extends Error {
   constructor() {
-    super("Online ordering needs the local order database. Restart the dev server and make sure DATABASE_URL is configured.");
+    super("Online ordering needs a database connection. Make sure DATABASE_URL or POSTGRES_PRISMA_URL is configured.");
     this.name = "DatabaseUnavailableError";
   }
 }
 
-const ensureDevelopmentDatabaseUrl = () => {
-  if (!process.env.DATABASE_URL && process.env.NODE_ENV === "development") {
-    process.env.DATABASE_URL = "file:./dev.db";
+const ensureDatabaseUrl = () => {
+  if (!process.env.DATABASE_URL && process.env.POSTGRES_PRISMA_URL) {
+    process.env.DATABASE_URL = process.env.POSTGRES_PRISMA_URL;
   }
 };
 
 export const isDatabaseConfigured = () => {
-  ensureDevelopmentDatabaseUrl();
+  ensureDatabaseUrl();
   return Boolean(process.env.DATABASE_URL);
 };
 
