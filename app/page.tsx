@@ -19,7 +19,7 @@ const jsonLd = {
   },
   servesCuisine: ["American", "Food truck", "Street food"],
   paymentAccepted: ["Cash", "PayPal"],
-  sameAs: ["https://www.instagram.com/hylandermobile"]
+  sameAs: ["https://www.instagram.com/hylander.mobile"]
 };
 
 export default function HomePage() {

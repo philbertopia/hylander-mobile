@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import Image from "next/image";
 import { OrderApp } from "@/components/OrderApp";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -11,6 +12,7 @@ export const metadata = {
 };
 
 export default function OrderPage({ searchParams }: { searchParams?: { order?: string } }) {
+  redirect("/");
   const returnedOrderNumber = typeof searchParams?.order === "string" ? searchParams.order : "";
 
   return (

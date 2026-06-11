@@ -28,8 +28,8 @@ export default function CareersPage() {
             <Link className="rounded-full bg-hyGreen px-5 py-3 text-sm font-black uppercase text-black shadow-[4px_4px_0_#ec4899]" href="/contact" data-animate="button">
               Contact Us
             </Link>
-            <a className="rounded-full bg-hyHotPink px-5 py-3 text-sm font-black uppercase text-white shadow-[4px_4px_0_#12b76a]" href="https://www.instagram.com/hylandermobile" target="_blank" rel="noopener noreferrer" data-animate="button">
-              Instagram
+            <a className="rounded-full bg-hyHotPink px-5 py-3 text-sm font-black uppercase text-white shadow-[4px_4px_0_#12b76a]" href="https://www.instagram.com/hylander.mobile" target="_blank" rel="noopener noreferrer" data-animate="button">
+              Instagram @hylander.mobile
             </a>
           </div>
         </section>

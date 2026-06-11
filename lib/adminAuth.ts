@@ -3,7 +3,11 @@ import { cookies } from "next/headers";
 
 const cookieName = "hm_admin";
 
-const getAdminPassword = () => process.env.ADMIN_PASSWORD || "hylander-dev";
+const getAdminPassword = () => {
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password) throw new Error("ADMIN_PASSWORD environment variable is not set.");
+  return password;
+};
 
 const sign = (value: string) => createHmac("sha256", getAdminPassword()).update(value).digest("hex");
 

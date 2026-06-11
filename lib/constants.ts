@@ -28,7 +28,7 @@ export const businessConfig = {
   city: "Kingston",
   state: "NY",
   email: "h.rappaportculinary@gmail.com",
-  instagram: "https://www.instagram.com/hylandermobile",
+  instagram: "https://www.instagram.com/hylander.mobile",
   truckAddress: "Kingston, NY",
   pickupInstructions: "Pick up at the Hylander Mobile truck window.",
   deliveryInstructions: "Local delivery only. A Hylander Mobile delivery person will bring your order."

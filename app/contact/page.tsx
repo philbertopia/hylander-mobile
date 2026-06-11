@@ -35,8 +35,9 @@ export default function ContactPage() {
             </label>
             <button className="rounded-full bg-hyDeepGreen p-3 font-black uppercase text-white shadow-[4px_4px_0_#ec4899] sm:col-span-2" type="submit" data-animate="button">Send Feedback</button>
           </form>
-          <a className="mx-auto grid h-12 w-12 place-items-center rounded-full border border-hyPink bg-gradient-to-br from-hyDeepPurple to-hyHotPink text-white shadow-sticker" href="https://www.instagram.com/hylandermobile" target="_blank" rel="noopener" aria-label="Hylander Mobile on Instagram" data-animate="button">
+          <a className="mx-auto inline-flex items-center gap-2 rounded-full border border-hyPink bg-gradient-to-br from-hyDeepPurple to-hyHotPink px-4 py-3 text-sm font-black uppercase text-white shadow-sticker" href="https://www.instagram.com/hylander.mobile" target="_blank" rel="noopener" aria-label="Hylander Mobile on Instagram at @hylander.mobile" data-animate="button">
             <InstagramIcon />
+            @hylander.mobile
           </a>
         </section>
       </main>

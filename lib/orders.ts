@@ -10,15 +10,15 @@ export const checkoutItemSchema = z.object({
 
 export const checkoutSchema = z.object({
   fulfillmentType: z.enum(["PICKUP", "DELIVERY"]),
-  customerName: z.string().min(2),
-  customerPhone: z.string().min(7),
-  customerEmail: z.string().email().optional().or(z.literal("")),
-  deliveryAddress: z.string().optional(),
-  deliveryCity: z.string().optional(),
-  deliveryState: z.string().optional(),
-  deliveryZip: z.string().optional(),
+  customerName: z.string().min(2).max(100),
+  customerPhone: z.string().min(7).max(20),
+  customerEmail: z.string().email().max(254).optional().or(z.literal("")),
+  deliveryAddress: z.string().max(200).optional(),
+  deliveryCity: z.string().max(100).optional(),
+  deliveryState: z.string().max(50).optional(),
+  deliveryZip: z.string().max(10).optional(),
   customerNotes: z.string().max(600).optional(),
-  items: z.array(checkoutItemSchema).min(1)
+  items: z.array(checkoutItemSchema).min(1).max(50)
 });
 
 export type CheckoutInput = z.infer<typeof checkoutSchema>;

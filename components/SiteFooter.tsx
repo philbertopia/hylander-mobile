@@ -7,11 +7,14 @@ export function SiteFooter() {
       <div className="footer-checker" aria-hidden="true" />
       <div className="mx-auto grid w-full max-w-6xl gap-4 px-4 pt-5 text-center sm:grid-cols-[1.4fr_0.8fr_1fr] sm:items-center sm:text-left">
         <div>
-          <strong className="block text-lg text-hyPurple">Hylander Mobile © 2026</strong>
+          <strong className="block text-lg text-hyPurple">Hylander Mobile {"\u00a9"} 2026</strong>
           <span className="text-sm font-bold">Little cart. Big flavor.</span>
+          <a className="mt-1 block text-sm font-black text-hyPink underline decoration-hyGreen underline-offset-4" href="https://www.instagram.com/hylander.mobile" target="_blank" rel="noopener noreferrer">
+            @hylander.mobile
+          </a>
         </div>
         <div className="flex justify-center">
-          <a className="grid h-10 w-10 place-items-center rounded-full border border-hyPink bg-gradient-to-br from-hyDeepPurple to-hyHotPink text-white shadow-sticker" href="https://www.instagram.com/hylandermobile" target="_blank" rel="noopener" aria-label="Hylander Mobile on Instagram">
+          <a className="grid h-10 w-10 place-items-center rounded-full border border-hyPink bg-gradient-to-br from-hyDeepPurple to-hyHotPink text-white shadow-sticker" href="https://www.instagram.com/hylander.mobile" target="_blank" rel="noopener" aria-label="Hylander Mobile on Instagram at @hylander.mobile">
             <InstagramIcon />
           </a>
         </div>
