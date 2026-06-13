@@ -17,6 +17,7 @@ type Venue = {
   openHour: number;
   closeHour: number;
   note?: string;
+  isVisible?: boolean;
 };
 
 const venues: Venue[] = [
@@ -44,7 +45,8 @@ const venues: Venue[] = [
     menuDisabled: true,
     openDays: [2],
     openHour: 19,
-    closeHour: 4
+    closeHour: 4,
+    isVisible: false
   }
 ];
 
@@ -66,7 +68,7 @@ export function HoursLocations() {
     return () => window.clearInterval(timer);
   }, []);
 
-  const venueStatuses = useMemo(() => venues.map((venue) => ({ ...venue, isOpen: now ? isVenueOpen(venue, now) : null })), [now]);
+  const venueStatuses = useMemo(() => venues.filter((venue) => venue.isVisible !== false).map((venue) => ({ ...venue, isOpen: now ? isVenueOpen(venue, now) : null })), [now]);
   const anyVenueOpen = venueStatuses.some((venue) => venue.isOpen);
   const imageSrc = anyVenueOpen ? "/img/hylander-mobile-open.png?v=20260519b" : "/img/hylander-mobile-closed.png?v=20260519b";
   const imageAlt = anyVenueOpen ? "Hylander Mobile is open" : "Hylander Mobile is closed";
