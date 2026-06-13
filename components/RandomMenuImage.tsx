@@ -63,7 +63,7 @@ const getActiveEventMenu = (now = new Date()) =>
   eventMenuWindows.find((eventMenu) => now >= new Date(eventMenu.start) && now < new Date(eventMenu.end))?.image;
 
 export function RandomMenuImage() {
-  const [menuImage, setMenuImage] = useState<MenuImage>(() => getActiveEventMenu() ?? randomMenuImages[0]);
+  const [menuImage, setMenuImage] = useState<MenuImage>(randomMenuImages[0]);
 
   useEffect(() => {
     setMenuImage(getActiveEventMenu() ?? randomMenuImages[Math.floor(Math.random() * randomMenuImages.length)]);
