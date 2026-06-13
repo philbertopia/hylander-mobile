@@ -13,7 +13,8 @@ export const metadata = {
 
 export default function OrderPage({ searchParams }: { searchParams?: { order?: string } }) {
   redirect("/");
-  const returnedOrderNumber = typeof searchParams?.order === "string" ? searchParams.order : "";
+  const order = searchParams?.order;
+  const returnedOrderNumber = typeof order === "string" ? order : "";
 
   return (
     <>
