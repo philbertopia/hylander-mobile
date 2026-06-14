@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "Hylander Mobile Food Truck Menu",
     description:
       "View the Hylander Mobile food truck menu for Kingston, NY, including chop cheese, chop chicken, wings, sliders, pierogis, drinks, desserts, and Sauce Roulette.",
-    images: ["/img/random-menus/ChatGPT Image May 16, 2026, 04_20_26 PM.png"],
+    images: ["/img/random-menus/menu-01.png"],
     siteName: "Hylander Mobile",
     type: "website"
   },
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hylander Mobile Food Truck Menu",
     description: "Kingston, NY food truck menu with chop cheese, chop chicken, wings, sliders, pierogis, drinks, desserts, and Sauce Roulette.",
-    images: ["/img/random-menus/ChatGPT Image May 16, 2026, 04_20_26 PM.png"]
+    images: ["/img/random-menus/menu-01.png"]
   }
 };
 

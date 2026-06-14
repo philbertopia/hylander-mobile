@@ -11,37 +11,37 @@ type MenuImage = {
 
 const randomMenuImages: MenuImage[] = [
   {
-    src: "/img/random-menus/ChatGPT Image May 16, 2026, 04_20_26 PM.png",
+    src: "/img/random-menus/menu-01.png",
     title: "Salt Box Bar Menu",
     alt: "Hylander Mobile food truck menu with prices for chop cheese, chop chicken, pierogis, wings, sliders, sides, desserts, mango, water, and Gatorade."
   },
   {
-    src: "/img/random-menus/ChatGPT Image May 16, 2026, 04_40_20 PM.png",
+    src: "/img/random-menus/menu-02.png",
     title: "Salt Box Bar Menu",
     alt: "Hylander Mobile food truck menu with prices for chop cheese, chop chicken, pierogis, wings, sliders, sides, desserts, mango, water, and Gatorade."
   },
   {
-    src: "/img/random-menus/ChatGPT Image May 16, 2026, 04_45_59 PM.png",
+    src: "/img/random-menus/menu-03.png",
     title: "Salt Box Bar Menu",
     alt: "Hylander Mobile food truck menu with prices for chop cheese, chop chicken, pierogis, wings, sliders, sides, desserts, mango, water, and Gatorade."
   },
   {
-    src: "/img/random-menus/ChatGPT Image May 16, 2026, 04_48_11 PM.png",
+    src: "/img/random-menus/menu-04.png",
     title: "Salt Box Bar Menu",
     alt: "Hylander Mobile food truck menu with prices for chop cheese, chop chicken, pierogis, wings, sliders, sides, desserts, mango, water, and Gatorade."
   },
   {
-    src: "/img/random-menus/ChatGPT Image May 16, 2026, 04_50_01 PM.png",
+    src: "/img/random-menus/menu-05.png",
     title: "Salt Box Bar Menu",
     alt: "Hylander Mobile food truck menu with prices for chop cheese, chop chicken, pierogis, wings, sliders, sides, desserts, mango, water, and Gatorade."
   },
   {
-    src: "/img/random-menus/ChatGPT Image May 18, 2026, 11_28_57 AM.png",
+    src: "/img/random-menus/menu-06.png",
     title: "Salt Box Bar Menu",
     alt: "Hylander Mobile food truck menu with prices for chop cheese, chop chicken, pierogis, wings, sliders, sides, desserts, mango, water, and Gatorade."
   },
   {
-    src: "/img/random-menus/ChatGPT Image May 18, 2026, 11_42_38 AM.png",
+    src: "/img/random-menus/menu-07.png",
     title: "Salt Box Bar Menu",
     alt: "Hylander Mobile food truck menu with prices for chop cheese, chop chicken, pierogis, wings, sliders, sides, desserts, mango, water, and Gatorade."
   }
