@@ -52,7 +52,7 @@ const eventMenuWindows: { start: string; end: string; image: MenuImage }[] = [
     start: "2026-06-13T00:00:00-04:00",
     end: "2026-06-14T04:00:00-04:00",
     image: {
-      src: "/img/knicks-menu-jun-13-2026.png",
+      src: "/img/knicks-menu-jun-13-2026-v2.png",
       title: "Knicks Night Menu",
       alt: "Hylander Mobile Knicks themed food truck menu for June 13, 2026."
     }
