@@ -61,7 +61,7 @@ const eventMenuWindows: { start: string; end: string; image: MenuImage }[] = [
     start: "2026-07-25T18:00:00-04:00",
     end: "2026-07-26T19:00:00-04:00",
     image: {
-      src: "/img/wedding.png",
+      src: "/img/wedding.png?v=20260725b",
       title: "Wedding Menu",
       alt: "Hylander Mobile wedding party food truck menu for July 25, 2026."
     }
