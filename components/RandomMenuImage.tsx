@@ -59,7 +59,7 @@ const eventMenuWindows: { start: string; end: string; image: MenuImage }[] = [
   },
   {
     start: "2026-07-25T00:00:00-04:00",
-    end: "2026-07-26T04:00:00-04:00",
+    end: "2026-07-26T12:00:00-04:00",
     image: {
       src: "/img/wedding.png",
       title: "Wedding Menu",
