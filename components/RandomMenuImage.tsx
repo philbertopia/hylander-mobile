@@ -56,6 +56,15 @@ const eventMenuWindows: { start: string; end: string; image: MenuImage }[] = [
       title: "Knicks Night Menu",
       alt: "Hylander Mobile Knicks themed food truck menu for June 13, 2026."
     }
+  },
+  {
+    start: "2026-07-25T00:00:00-04:00",
+    end: "2026-07-26T04:00:00-04:00",
+    image: {
+      src: "/img/wedding.png",
+      title: "Wedding Menu",
+      alt: "Hylander Mobile wedding party food truck menu for July 25, 2026."
+    }
   }
 ];
 
