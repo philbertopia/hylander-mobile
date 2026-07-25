@@ -29,12 +29,9 @@ export function SiteHeader() {
         <div className="relative aspect-[1910/688] w-[calc(100%-5rem)] max-w-[500px] overflow-visible bg-black bg-contain bg-top bg-no-repeat sm:w-full sm:max-w-[520px]" style={{ backgroundImage: `url('${navbarImage}')` }}>
           <Link href="/" className="absolute inset-0" aria-label="Hylander Mobile home" />
         </div>
-        <div className="grid w-full grid-cols-4 gap-1.5">
+        <div className="grid w-full grid-cols-3 gap-1.5">
           <Link className="rounded-full bg-hyDeepPurple px-2 py-1.5 text-center text-[0.68rem] font-black uppercase text-white shadow-[inset_0_-3px_0_#be185d] sm:px-3 sm:py-2 sm:text-sm" href="/#menu" data-animate="nav">
             Menu
-          </Link>
-          <Link className="rounded-full bg-hyDeepPurple px-2 py-1.5 text-center text-[0.68rem] font-black uppercase text-white shadow-[inset_0_-3px_0_#be185d] sm:px-3 sm:py-2 sm:text-sm" href="/#menu" data-animate="nav">
-            Order
           </Link>
           <Link className="rounded-full bg-hyDeepPurple px-2 py-1.5 text-center text-[0.68rem] font-black uppercase text-white shadow-[inset_0_-3px_0_#be185d] sm:px-3 sm:py-2 sm:text-sm" href="/catering" data-animate="nav">
             Catering

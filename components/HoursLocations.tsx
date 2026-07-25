@@ -13,6 +13,7 @@ type Venue = {
   menuLabel: string;
   menuExternal?: boolean;
   menuDisabled?: boolean;
+  orderAvailable?: boolean;
   openDays: number[];
   openHour: number;
   closeHour: number;
@@ -29,6 +30,7 @@ const venues: Venue[] = [
     href: "https://www.thesaltbox.bar/",
     menuHref: "/order?venue=salt-box",
     menuLabel: "Order",
+    orderAvailable: false,
     openDays: [2, 3, 4, 5, 6, 0],
     openHour: 20,
     closeHour: 3,
@@ -110,7 +112,7 @@ export function HoursLocations() {
                   Menu
                 </span>
               )}
-              {venue.menuDisabled ? (
+              {venue.orderAvailable === false ? null : venue.menuDisabled ? (
                 <span className="inline-flex min-h-10 w-fit cursor-not-allowed items-center justify-center rounded-full border-2 border-white/60 bg-hyPink/60 px-4 py-2 text-sm font-black uppercase leading-none text-white opacity-75 shadow-[0_0_14px_rgba(236,72,153,0.45),inset_0_-4px_0_rgba(190,24,93,0.72)]" aria-disabled="true">
                   {venue.menuLabel}
                 </span>

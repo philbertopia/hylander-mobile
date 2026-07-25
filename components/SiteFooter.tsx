@@ -25,7 +25,6 @@ export function SiteFooter() {
         <nav className="flex flex-wrap justify-center gap-3 sm:col-span-3" aria-label="Footer navigation">
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/">Home</Link>
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/#menu">Salt Box Bar Menu</Link>
-          <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/order">Order</Link>
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/catering">Catering</Link>
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/contact">Contact</Link>
           <Link className="rounded-full border border-white/20 px-3 py-2 text-sm font-bold" href="/careers">Careers</Link>
